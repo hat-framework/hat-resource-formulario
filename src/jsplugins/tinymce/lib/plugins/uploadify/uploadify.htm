@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#uploadify_dlg.replace_title}</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="js/uploadify.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/uploadify.css" />
+        <script type="text/javascript">
+            $(document).ready(function() { 
+                    $('.uify_img').load('http://localhost/hat/recursos/upload/lib/actions/load.php?album=1053');
+                    $('.uify').fileUpload({
+                        'uploader': '/hat/recursos/upload/jsplugins/uploadify/scripts/uploader.swf',
+                        'cancelImg': '/hat/recursos/upload/jsplugins/uploadify/scripts/cancel.png',
+                        'script': '/hat/recursos/upload/lib/upload.php',
+                        'folder': '/fotos/',
+
+                        'auto'       : true,
+                        'buttonText' : 'Selecionar Imagem',
+                        'displayData': 'percentage', //'percentage' - 'speed' // 
+                        'fileDesc'   : 'Envie suas imagens',
+                        'fileExt'    : '*.jpg;*.jpeg;*.gif;*.png',
+                        'multi'      : true,
+                        'method'     : 'post',
+                         onComplete: function (evt, queueID, fileObj, response, data) {
+                                var json = JSON.parse(response);
+                                if(json.status == 1){
+                                    $('.uify_img').append(json.img);
+                                }else{
+                                    alert(json.response);
+                                }
+                         },
+                         'scriptData'  : {
+                                'album':'1053',
+                                'usuario':'1',
+                                'base_path':'/hat/'
+                         },
+                         'simUploadLimit' : 1,
+                         'wmode'       : 'transparent'
+                    });
+            });
+        </script>
+</head>
+<body role="application" aria-labelledby="app_title">
+    <div class="uify">Existe algum problema com seu javascript</div>
+    <div class="uify_img"></div>
+</body>
+</html>
