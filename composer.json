@@ -1,9 +1,9 @@
 {
-    "name": "hatframework/resources/formulario",
+    "name": "hatframework/hat-resource-formulario",
     "type": "library",
     "description": "",
     "keywords": [],
-    "homepage": "https://github.com/hat-framework/resources/formulario",
+    "homepage": "https://github.com/hat-framework/hat-resource-formulario",
     "license": "MIT",
     "authors": [
         {
