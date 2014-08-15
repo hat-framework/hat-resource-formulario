@@ -8,7 +8,8 @@ class dinamicEspecial extends especialInterface {
     
     public function js($campo, $array, $form){
         $class = $array['type'] ."Type";
-        require_once RESOURCES . "formulario/lib/types/$class.php";
+        $dir   = classes\Classes\Registered::getResourceLocation('formulario', true);
+        require_once $dir."lib/types/$class.php";
         
         $value = $form->getVar($campo);
         if($value == "")
@@ -28,5 +29,3 @@ class dinamicEspecial extends especialInterface {
         die(__CLASS__);
     }
 }
-
-?>

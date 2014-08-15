@@ -20,7 +20,8 @@ $obj = new setdata();
 $obj->set();
 
 //print_r($_REQUEST);
-require_once RESOURCES . "upload/lib/upload.php";
+$dir   = classes\Classes\Registered::getResourceLocation('upload', true);
+require_once "$dir/src/lib/upload.php";
 
 /*
 if($_SERVER['REQUEST_METHOD']=='POST') { // Upload is complete
