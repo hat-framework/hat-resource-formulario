@@ -63,7 +63,7 @@ class FormHelper extends classes\Classes\Object{
     public function Open($action = "", $enctype="", $ajax = true, $abs_url = false){
         self::$i++;
         $i = self::$i;
-        $this->html->LoadJs(URL."static/js/lib/formulario/description");
+        $this->html->LoadJs(URL_JS."/lib/formulario/description");
         $this->act    = $action;
         $this->absurl = $abs_url;
         if($this->formulario == ""){
