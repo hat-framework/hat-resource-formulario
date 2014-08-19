@@ -12,9 +12,7 @@ class autosizeJs extends JsPlugin{
     
     public function init(){
         $this->Html->LoadJQuery();
-        $this->Html->LoadJs("$this->url/js/autosize-min");
+        $this->Html->LoadBowerComponent('jquery-autosize/jquery.autosize.min');
         $this->Html->LoadJQueryFunction("$('textarea').autosize();");
     }    
 }
-
-?>

@@ -11,9 +11,9 @@ class redactorJs extends JsPlugin{
     }
     
     public function init(){
-        $this->Html->LoadJs("$this->url/redactor.min", true);
-        $this->Html->LoadJs("$this->url/redactor.plugin", true);
-        $this->Html->LoadCss("plugins/formulario/redactor/redactor");
+        $this->Html->LoadBowerComponent('redactor/redactor/redactor.min');
+        $this->Html->LoadBowerComponent('hatframework-hatjs-form/redactor.plugin');
+        $this->Html->LoadBowerComponentCss('redactor/redactor/redactor');
     }
 
     private $options = array(

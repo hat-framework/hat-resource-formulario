@@ -17,7 +17,7 @@ class keyfiltherJs extends JsPlugin{
     }
 
     public function init() {
-        $this->Html->LoadJs("$this->url/keyfilther");
+        $this->Html->LoadBowerComponent('jquery.keyfilter/jquery.keyfilter');
     }
     
     public function int($name){

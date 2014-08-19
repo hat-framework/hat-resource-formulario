@@ -1,0 +1,30 @@
+{
+  "name": "HatForm",
+  "version": "0.1.1",
+  "authors": [
+    "Thom MF <thom@hat-framework.com>"
+  ],
+  "description": "hatframework javascript form package",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "http://hat-framework.com/hatjs/formulario",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery-autosize"   : "~1.18.9",
+    "jquery-tokeninput" : "https://github.com/loopj/jquery-tokeninput.git#~1.7.0",
+    "jquery-validation" : "https://github.com/jzaefferer/jquery-validation.git#~1.13.0",
+    "jquery.keyfilter"  : "https://github.com/akzhan/jquery-keyfilter.git",
+    "NicEdit"           : "https://github.com/danishkhan/NicEdit.git",
+    "redactor"          : "*",
+    "angular-redactor"  : "~1.0.0"
+  }
+}

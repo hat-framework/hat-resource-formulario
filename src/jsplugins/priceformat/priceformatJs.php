@@ -17,8 +17,7 @@ class priceformatJs extends JsPlugin{
     
     public function init(){
         $this->Html->LoadJQuery();
-        $this->Html->LoadJs("$this->url/teamdf/jquery.number.min");
-        //$this->Html->LoadJs("$this->url/priceformat");
+        $this->Html->LoadBowerComponent("Jquery-Price-Format/jquery.price_format.min");
     }
     
     public function getClass(){
@@ -50,5 +49,3 @@ class priceformatJs extends JsPlugin{
     }
     
 }
-
-?>

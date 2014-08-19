@@ -17,9 +17,11 @@ class niceditorJs extends JsPlugin{
         if($i > 0) return;
         
         $i++;
+        $icons  = $this->Html->getBowerComponentItem('NicEdit/nicEditorIcons.gif');
+        $upload = $this->Html->getBowerComponentItem('NicEdit/upload.php');
         $this->config_nedit = "
-            iconsPath : '$this->url/nicEditorIcons.gif', 
-            uploadURI : '$this->url/upload.php',
+            iconsPath : '$icons', 
+            uploadURI : '$upload',
             alternative_path     : 'teste'";
             //,buttonList : ['bold','italic','underline', 'upload']";
 
@@ -39,5 +41,3 @@ class niceditorJs extends JsPlugin{
         return self::$instance;
     }
 }
-
-?>

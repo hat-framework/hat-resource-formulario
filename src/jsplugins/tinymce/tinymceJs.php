@@ -11,7 +11,7 @@ class tinymceJs extends JsPlugin{
     }
     
     public function init(){
-        $this->Html->LoadJs("$this->url/lib/jquery.tinymce", true);
+        $this->Html->LoadBowerComponent('tinymce/jquery.tinymce.min');
     }
     
     private $options = array(
