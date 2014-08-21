@@ -138,7 +138,7 @@ class FormHelper extends classes\Classes\Object{
         
         $var = $this->flush($this->isprintable);
         $this->genValidation();
-        $this->html->Flush(); 
+        //$this->html->Flush(); 
         $this->reset();
         return $var;
         

@@ -16,7 +16,8 @@ class jqueryvalidateJs extends JsPlugin{
         $this->LoadJsPlugin('jqueryui/blockui', 'bui');
         $this->Html->LoadBowerComponent("hatframework-hatjs-form/clearform");
         $this->Html->LoadBowerComponent("jquery-maskedinput/dist/jquery.maskedinput.min");
-        $this->Html->LoadBowerComponent("jquery-maskedinput/dist/jquery.maskedinput.min");
+        $this->Html->LoadBowerComponent("jquery-validation/dist/jquery.validate.min");
+        $this->Html->LoadBowerComponent("jquery-validation/dist/additional-methods.min");
     }
     
     static private $instance;
