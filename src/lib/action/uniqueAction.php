@@ -7,9 +7,10 @@ class uniqueAction extends classes\Classes\Object implements actionInterface{
         
         $atual = $form->getVar($name);
         $atual = base64_encode($atual);
+        $url   = \classes\Classes\Registered::getResourceLocationUrl('formulario');
         $model = $type['model'];
         $validation = "remote: {
-            url: '".URL."recursos/formulario/urls/unique.php?model=$model&atual=$atual',
+            url: '$url/urls/unique.php?model=$model&atual=$atual',
             type: 'post',
             timeout: '4000',
             data: {
