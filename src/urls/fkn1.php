@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../init.php';
+require_once $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR. 'init.php';
 use classes\Classes\Object;
 class FormN1Key extends classes\Classes\Object{
     
@@ -49,5 +49,3 @@ if($obj->verifica() === true){
     $out['erro'] = $obj->getErrorMessage();
 }
 echo json_encode($out);
-
-?>

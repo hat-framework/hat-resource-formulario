@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../init.php';
+require_once $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR. 'init.php';
 use classes\Classes\Object;
 class FormUniqueKey extends classes\Classes\Object{
     
@@ -42,5 +42,3 @@ class FormUniqueKey extends classes\Classes\Object{
     
 }
 FormUniqueKey::verifica();
-
-?>

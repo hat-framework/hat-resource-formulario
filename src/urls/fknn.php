@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../init.php';
+require_once $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR. 'init.php';
 use classes\Classes\Object;
 class FormNNKey extends classes\Classes\Object{
     
@@ -26,5 +26,3 @@ class FormNNKey extends classes\Classes\Object{
     
 }
 FormNNKey::verifica();
-
-?>
