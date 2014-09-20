@@ -10,7 +10,7 @@ class telefoneEspecial extends especialInterface{
             $this->setErrorMessage("O telefone ($valor) não pode conter letras");
             return false;
         }
-        elseif(strlen($valor) != 10){
+        elseif(strlen($valor) < 10){
             $this->setErrorMessage("O telefone deve conter 10 números, 
                 os dois primeiros o ddd e os 8 últimos o número local");
             return false;
@@ -20,8 +20,8 @@ class telefoneEspecial extends especialInterface{
     
     public function js($campo, $array, $form){
         $this->LoadJsPlugin("formulario/jqueryvalidate", 'jsval');
-        $this->jsval->addMask("$('#$campo').mask('(99) 9999-9999');");
-        $form->text($campo, $array['name'], @$array['default'], @$array['description'], "", 'tel');
+        $this->jsval->addMask("$('#$campo').mask('(99) 9999-9999?9');");
+        $form->text($campo, $array['name'], @$array['default'], @$array['description'], "autocomplete='off'", 'tel');
     }
     
     public function getSearchData(){
