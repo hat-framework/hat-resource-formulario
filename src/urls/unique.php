@@ -26,16 +26,13 @@ class FormUniqueKey extends classes\Classes\Object{
             $where .= "`$name` = '$var'";
         }
         $arr = $this->model_obj->selecionar(array(), $where, 1);
-        if(empty ($arr)) echo 'true';
+        if(empty ($arr)){echo 'true';}
         else{
             $arr = array_shift($arr);
-            
             $atual = $comp = "";
-            if(array_key_exists("atual", $_GET)) $atual =base64_decode($_GET['atual']);
-            if(array_key_exists($name  , $arr) ) $comp = $arr[$name];
-            
-            if($atual == $comp) echo 'true';
-            else                echo 'false';
+            if(array_key_exists("atual", $_GET))                 {$atual = base64_decode($_GET['atual']);}
+            if(isset($name) && array_key_exists($name  , $arr) ) {$comp  = $arr[$name];}
+            echo ($atual == $comp)?'true':'false';
         }
         
     }
