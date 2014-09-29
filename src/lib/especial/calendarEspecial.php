@@ -52,27 +52,25 @@ class calendarEspecial extends especialInterface{
         }elseif(isset($_POST[$campo])) $date = $_POST[$campo];
         $array['type'] = isset($array['type'])?$array['type']:"date";
         //$this->LoadJsPlugin("formulario/calendar", 'calendar');
-        $this->LoadJsPlugin("formulario/mobiscroll", 'calendar');
+        //$this->LoadJsPlugin("formulario/mobiscroll", 'calendar');
         
         
-        $type = "";
-        $this->calendar->setEvents($campo, $mindate, $maxdate);
+        //$this->calendar->setEvents($campo, $mindate, $maxdate);
         switch ($array['type']){
             case 'timestamp':
             case 'datetime':
-                $this->calendar->datetime($campo);
+                $type = "datetime";
+                //$this->calendar->datetime($campo);
                 break;
             case 'time':
-                //if(!MOBILE) 
-                $this->calendar->time($campo);
-                //else $type = "time";
+                //$this->calendar->time($campo);
+                $type = "time";
                 break;
             default :
-                //if(!MOBILE) 
-                $this->calendar->draw($campo);
-                //else  $type = "date";
+                //$this->calendar->draw($campo);
+                $type = "date";
         }
-        $this->calendar->clearEvents();
+        //$this->calendar->clearEvents();
         $form->text($campo, $array['name'], '', @$array['description'], "", $type);
     }
     
@@ -117,5 +115,3 @@ class calendarEspecial extends especialInterface{
     }
     
 }
-
-?>
