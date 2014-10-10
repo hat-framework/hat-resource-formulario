@@ -564,7 +564,7 @@ class FormHelper extends classes\Classes\Object{
     /*
      * Cria um novo botao
      */
-    public function submit($field_name, $value, $extra){
+    public function submit($field_name, $value, $extra = ""){
         $this->button = true;
         
         $class = classes\Classes\Template::getClass('formbutton');
