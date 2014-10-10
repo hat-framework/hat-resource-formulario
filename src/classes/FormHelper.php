@@ -26,7 +26,7 @@ class FormHelper extends classes\Classes\Object{
     public function  __construct() {
         if(DEBUG) $this->concat = "\n\t\t";
         //$this->LoadHelper("Js"          , "Js");
-        $this->LoadResource("html", "html");
+        $this->LoadResource("html", "html")->addSytle("#antispam, #lantispam {display: none !important;} .description-text{display:none;}");;
         $this->validator = validatorResource::getInstanceOf();
         $this->isprintable = true;
         $this->omitir      = false;
@@ -88,9 +88,8 @@ class FormHelper extends classes\Classes\Object{
     
     private function header(){
         $enctype = $this->Enctype($this->enctype);
-        $var  = "<style>#antispam, #lantispam {display: none !important;} .description-text{display:none;}</style>";
         $form = str_replace('/','_',LINK)."_".CURRENT_ACTION."_form";
-        $var .= "<div id='$form' class='div-formulario'>";
+        $var = "<div id='$form' class='div-formulario'>";
         
         $v = $this->getMethod();
         if(!$this->omitir){
