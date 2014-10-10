@@ -286,7 +286,7 @@ class FormHelper extends classes\Classes\Object{
         $valor     =  ($temp == "")? $value : $temp;
         $this->hasPlaceholder($name, $caption, $extras);
         if(is_array($valor)) $valor = "";
-        $var = "<input type='$type' $extras id='$id' name='$id' value='$valor' description='$desc'/>";
+        $var = "<input type='$type' $extras id='$id' name='$id' class='form-control' value='$valor' description='$desc'/>";
         $this->started = true;
         $this->printfield($name, $caption, $var, $desc);
     }
@@ -498,7 +498,7 @@ class FormHelper extends classes\Classes\Object{
     public function password($field_name, $label = "", $maxlength = 32, $desc = "", $extras = ""){
         $id = GetPlainName($field_name, false);
         $this->hasPlaceholder($field_name, $label, $extras);
-        $var = "<input type='password' id='$id' name='$id' maxlength='$maxlength' $extras/>";
+        $var = "<input type='password' id='$id' name='$id' class='form-control' maxlength='$maxlength' $extras/>";
         $this->started = true;
         $this->printfield($field_name, $label, $var, $desc);
         
@@ -564,9 +564,13 @@ class FormHelper extends classes\Classes\Object{
     /*
      * Cria um novo botao
      */
-    public function submit($field_name, $value){
+    public function submit($field_name, $value, $extra){
         $this->button = true;
-        $var = "<div class='btn-container'><input name='$field_name' type='submit' id='$field_name' value='$value' class='btn btn-inverse'/></div>";
+        
+        $class = classes\Classes\Template::getClass('formbutton');
+        if($class === ""){$class = 'btn btn-inverse';}
+        
+        $var = "<div class='btn-container'><input name='$field_name' type='submit' id='$field_name' value='$value' $extra class='$class'/></div>";
         $this->lastField = $var;
         $this->printScreen($var);
     }
@@ -603,7 +607,7 @@ class FormHelper extends classes\Classes\Object{
     private function printfield($field_name, $label, $var, $desc, $alert_extra = ""){
         $this->lastField = $var;        
         $id = GetPlainName($field_name);
-        $this->printScreen("<div class='form_item' id='f_$id'>");
+        $this->printScreen("<div class='form_item form-group' id='f_$id'>");
         $this->MakeLabel($field_name, $label . $this->MakeDescription($field_name, $desc));
         $this->printScreen($var);
         $this->MakeAlert($field_name, $alert_extra);
@@ -618,10 +622,22 @@ class FormHelper extends classes\Classes\Object{
         
         $c = (DEBUG)?"\t":"";
         $campo = GetPlainName($campo, false);
-        $var = "<div class='description-container' id='desc_$campo'>
-                    <div class='description-hover'>?</div>
-                    <div class='description-text'>$descricao</div>
-                </div>";
+        
+        //se alguém vir isto aqui, é pog das brabas "thom" - um recurso não deveria depender de um template..
+        if(CURRENT_TEMPLATE === 'rf'){
+            $var = "<div class='description-container' id='desc_$campo'>
+                        <div class='description-hover'>?</div>
+                        <div class='description-text'>$descricao</div>
+                    </div>";
+        }else{
+            $var = '<a '
+                    . 'data-toggle="tooltip" '
+                    . 'data-placement="right" '
+                    . 'title="'.$descricao.'">'
+                    . '<span class="glyphicon glyphicon-question-sign"></span>'
+                    . '</a>';
+            $this->LoadResource('html', 'html')->LoadJQueryFunction('$("[data-toggle=tooltip").tooltip();');
+        }
         return ($c . $var);
     }
     
