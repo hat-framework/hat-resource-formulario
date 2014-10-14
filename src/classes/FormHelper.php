@@ -89,7 +89,7 @@ class FormHelper extends classes\Classes\Object{
     private function header(){
         $enctype = $this->Enctype($this->enctype);
         $form = str_replace('/','_',LINK)."_".CURRENT_ACTION."_form";
-        $var = "<div id='$form' class='div-formulario'>";
+        $var = "<div id='$form' class='div-formulario col-xs-12'>";
         
         $v = $this->getMethod();
         if(!$this->omitir){
@@ -621,22 +621,14 @@ class FormHelper extends classes\Classes\Object{
         
         $c = (DEBUG)?"\t":"";
         $campo = GetPlainName($campo, false);
-        
-        //se alguém vir isto aqui, é pog das brabas "thom" - um recurso não deveria depender de um template..
-        if(CURRENT_TEMPLATE === 'rf'){
-            $var = "<div class='description-container' id='desc_$campo'>
-                        <div class='description-hover'>?</div>
-                        <div class='description-text'>$descricao</div>
-                    </div>";
-        }else{
             $var = '<a '
                     . 'data-toggle="tooltip" '
                     . 'data-placement="right" '
                     . 'title="'.$descricao.'">'
-                    . '<span class="glyphicon glyphicon-question-sign"></span>'
+                    . '<span class="glyphicon glyphicon-question-sign desc"></span>'
                     . '</a>';
             $this->LoadResource('html', 'html')->LoadJQueryFunction('$("[data-toggle=tooltip").tooltip();');
-        }
+        
         return ($c . $var);
     }
     
