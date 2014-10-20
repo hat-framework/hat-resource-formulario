@@ -316,7 +316,7 @@ class FormHelper extends classes\Classes\Object{
             $id = GetPlainName($name, false) ;
             $idname = "$id$multi";
             
-            $var  = "<select id='$id' class='$id' name='$idname'>";
+            $var  = "<select id='$id' class='$id form-control' name='$idname'>";
             $selected_tag = " class='selected' selected=true ";
             /*if($selected != "")
                 $var .= "<option value=''>Selecione uma opção</option>";*/
