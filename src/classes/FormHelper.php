@@ -302,7 +302,7 @@ class FormHelper extends classes\Classes\Object{
             $valor = (array_key_exists($id, $_POST))? $_POST[$id] : $temp;
             $ex    = "description='$desc' cols='23' rows='8'";
             $extra = trim((trim($extra) == "")?$ex:"$extra $ex");
-            $var = "<textarea $extra id='$id' name='$id'>$valor</textarea>";
+            $var = "<textarea class='form-control' $extra id='$id' name='$id'>$valor</textarea>";
 
             $this->started = true;
             $this->printfield($name, $caption, $var, $desc, "<br/>");
