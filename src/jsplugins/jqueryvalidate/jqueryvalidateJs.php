@@ -101,9 +101,11 @@ class jqueryvalidateJs extends JsPlugin{
             }
             $output .= "},
             success: function(label) {
-                tform.find('#v'+label.attr('for')).text('Ok!').removeClass('erro').addClass('valid_msg');
+                tform.find('#v'+label.attr('for')).parent().addClass('has-success').removeClass('has-error');
+                tform.find('#v'+label.attr('for')).removeClass('erro').addClass('valid_msg');
             },
             errorPlacement: function(label, element) {
+                tform.find('#v'+label.attr('for')).parent().addClass('has-error').removeClass('has-success');
                 tform.find('#v'+label.attr('for')).html(label.text()).removeClass('valid_msg').addClass('erro'); 
             }";
         }
@@ -158,8 +160,14 @@ class jqueryvalidateJs extends JsPlugin{
                     }
                     else if(typeof json.alert != 'undefined' && json.alert != '') blockUI_alert(json.alert);
                     else blockUI_error('Dados enviados corretamente, mas sem a confirmação do servidor.');
-                    for (var camp in json){
-                         $('#v'+camp).text(json[camp]).fadeIn('slow').addClass('erro').removeClass('valid_msg');
+                    
+                    if(typeof json.validation === 'undefined'){return;}
+                    var validation = json.validation;
+                    for (var camp in validation){
+                        var cp = $(form).find('#v'+camp);
+                        if(typeof (cp.attr('id')) === 'undefined'){continue;}
+                        cp.parent().addClass('has-error has-feedback');
+                        cp.text(validation[camp]).slideDown('slow').addClass('control-label').removeClass('valid_msg');
                     }
                 }
 

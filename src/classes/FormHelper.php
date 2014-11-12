@@ -640,7 +640,7 @@ class FormHelper extends classes\Classes\Object{
         $campo  = GetPlainName($campo, false);
         if($Texto != ""){$Texto = "<span>$Texto</span>"; }
         if($Texto != ""){
-            $var = "<label for='$campo' id='l$campo' class='caption'>{$Texto}</label>";
+            $var = "<label for='$campo' id='l$campo' class='control-label caption'>{$Texto}</label>";
         }
         $this->printScreen($var);
     }
@@ -652,7 +652,7 @@ class FormHelper extends classes\Classes\Object{
         $field_name = GetPlainName($field_name, false);
         $answer = $this->validator->Answer($field_name);
         if($answer != "") $answer = "<br/>$answer<br/>";
-        $var = "$alert_extra<span id='v$field_name' class='response-msg'>$answer</span>";
+        $var = "$alert_extra<span id='v$field_name' class='control-label response-msg'>$answer</span>";
         $this->printScreen($var);
     }
     

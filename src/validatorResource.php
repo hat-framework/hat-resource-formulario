@@ -116,15 +116,7 @@ class validatorResource extends \classes\Interfaces\resource{
     
     private function genMessages($bool, $dados){
         if($bool){return true;}
-        $msgs = $this->getMessages();
-        foreach($msgs as $campo => $msg){
-            if($msg == "") {continue;}
-            $camp_name = isset($dados[$campo]['name'])?$dados[$campo]['name']:$campo;
-            $erro = is_array($msg)?implode(" ", $msg):$msg;
-            $this->setErrorMessage("$camp_name: $erro");
-        }
-        $this->setErrorMessage("Erro ao validar Formulário!");
-        return $bool;
+        return $this->setErrorMessage("Erro ao validar Formulário!");
     }
     
     public function getValidPost(){
