@@ -19,7 +19,7 @@ class jqtokeninputJs extends JsPlugin{
     public $project_link = "http://loopj.com/jquery-tokeninput/";
     public function init(){
         $this->Html->LoadBowerComponent("jquery-tokeninput/build/jquery.tokeninput.min");
-        $this->Html->LoadBowerComponentCss("jquery-tokeninput/styles/token-input");
+        $this->Html->LoadBowerComponentCss(array("jquery-tokeninput/styles/token-input", "jquery-tokeninput/styles/token-input-facebook"));
     }
     
     public function setForm($form){

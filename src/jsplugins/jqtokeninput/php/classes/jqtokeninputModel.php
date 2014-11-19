@@ -41,15 +41,17 @@ class jqtokeninputModel extends classes\Classes\Object{
         $count = count($keys);
         foreach($var as $array){
             $out[$i]['id']   = $antes . " " .$array[$k1];
-            $out[$i]['name'] = "<div class='tokeninput_item'>$antes ";
+            $out[$i]['name'] = "$antes ";
+            //$out[$i]['name'] = "<div class='tokeninput_item'>$antes ";
             if($count > 1){
                 $j = 1;
                 while(isset($keys[$j])){
-                    $out[$i]['name'] .= "<span class='".$keys[$j]."'>".$array[$keys[$j]]."</span>";
+                    $out[$i]['name'] .= $array[$keys[$j]];
+                    //$out[$i]['name'] .= "<span class='".$keys[$j]."'>".$array[$keys[$j]]."</span>";
                     $j++;
                 }
             }
-            $out[$i]['name'] .= "</div>";
+            //$out[$i]['name'] .= "</div>";
             $i++;
         }
         return $out;
@@ -77,5 +79,3 @@ class jqtokeninputModel extends classes\Classes\Object{
         return true;
     }
 }
-
-?>
