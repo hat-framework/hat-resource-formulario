@@ -144,7 +144,7 @@ cepClass.prototype.clearLocalCache = function(){
 };
 
 cepClass.prototype.message_erro = function(msg){
-    if(typeof message_erro === 'function'){
+    if(typeof message_erro == 'function'){
         message_erro(msg);
     }else {alert(msg);}
 };
