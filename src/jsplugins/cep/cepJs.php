@@ -13,8 +13,7 @@ class cepJs extends JsPlugin{
     }
 
     public function init(){
-        $this->Html->LoadJs("$this->url/scripts/cep");
-        //$this->Html->LoadJs(URL."static/js/lib/baseurl");
+        $this->Html->LoadJs(array("lib/baseurl", 'lib/haturl', "$this->url/scripts/cep"));
     }
 
     /*
