@@ -10,14 +10,13 @@ class varcharType extends typeInterface{
     }
     
     public function formulario($name, $array, $caption = "", $value = "", $desc = ""){
-        
         $size = isset($array['size'])?$array['size']:0;
         if($size >= 200){
             $nm = GetPlainName($name);
             $this->form->textarea($name, $caption, $value, $desc, "onkeyup=\"countChar(this, $size, 'v$nm');\" size =\"$size\"");
             
             $this->LoadResource('html', 'html');
-            $this->html->LoadJs(URL.'/static/js/lib/formulario/countchar');
+            $this->html->LoadJs(URL_JS.'/lib/formulario/countchar');
         }
         else {
             $extra = (isset($array['size']))?"maxlength='{$array['size']}'":"";

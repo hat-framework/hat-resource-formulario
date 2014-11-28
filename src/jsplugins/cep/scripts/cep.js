@@ -33,6 +33,7 @@ cepClass.prototype.findCepAddresLOCALHOSTWebservice = function(cep, fn){
     var url = getBaseURL() + "usuario/endereco/getcep/"+cep;
     $.ajax({
         url: url,
+        timeout:1000,
         dataType: "json",
         success: function(json){
             if(json.resultado != 1){return fn({status:0});}
@@ -53,6 +54,7 @@ cepClass.prototype.findCepAddresKINGHOSTWebservice = function(cep, fn){
     var url  = 'http://webservice.kinghost.net/web_cep.php?auth=12473be26ed7caa39d0830b97dbea02a&formato=json&cep='+cep;
     $.ajax({
         url: url,
+        timeout:1000,
         dataType: "json",
         success: function(json){
             if(json.result != 1){return fn({status:0});}
@@ -73,6 +75,7 @@ cepClass.prototype.findCepAddresCORREIOSWebservice = function(cep, fn){
     var url = getResourceUrl('formulario') + "/src/jsplugins/cep/webservice/cep.php?cep="+cep;
     $.ajax({
         url: url,
+        timeout:1000,
         dataType: "json",
         success: function(json){
             if(json.result != 1){return fn({status:0});}

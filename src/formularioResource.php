@@ -140,6 +140,7 @@ class formularioResource extends \classes\Interfaces\resource{
      */
     public function setData($data){
         $this->form->setData($data);
+        return $this;
     }
     
     /*
@@ -147,6 +148,7 @@ class formularioResource extends \classes\Interfaces\resource{
      */
     public function setMethod($method){
         $this->form->setMethod($method);
+        return $this;
     }
 
     /*
@@ -154,6 +156,7 @@ class formularioResource extends \classes\Interfaces\resource{
      */
     public function printable(){
         $this->form->printable();
+        return $this;
     }
     
     /*
@@ -161,6 +164,7 @@ class formularioResource extends \classes\Interfaces\resource{
      */
     public function omitir_cabecalho(){
         $this->form->omitir_cabecalho();
+        return $this;
     }
     
     /*
@@ -168,7 +172,6 @@ class formularioResource extends \classes\Interfaces\resource{
      */
     public function setFormTable($bool){
         $this->form->setFormTable($bool);
+        return $this;
     }
 }
-
-?>

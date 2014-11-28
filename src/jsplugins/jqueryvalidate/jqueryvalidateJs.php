@@ -42,6 +42,7 @@ class jqueryvalidateJs extends JsPlugin{
     }
     
     public function addMask($mask){
+        if(!isset($this->masks[$this->formname])){$this->masks[$this->formname] = "";}
         $this->masks[$this->formname] .= $mask . " \n\n\t ";
     }
     
