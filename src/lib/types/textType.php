@@ -22,5 +22,3 @@ class textType extends typeInterface{
         die(__CLASS__);
     }
 }
-
-?>

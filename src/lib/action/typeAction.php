@@ -29,7 +29,7 @@ class typeAction extends classes\Classes\Object implements actionInterface{
         
         //se não existe o determinado tipo, continua
         $class = $type."Type";
-        if(!$this->getNewInstance($class, $form))return true;
+        if(!$this->getNewInstance($class, $form)){return true;}
         
         //recupera a instancia do novo objeto
         $obj = $this->actions[$class];
@@ -42,7 +42,7 @@ class typeAction extends classes\Classes\Object implements actionInterface{
 
         //se não existe o determinado tipo, continua
         $class = $type."Type";
-        if(!$this->getNewInstance($class))return true;
+        if(!$this->getNewInstance($class)){return true;}
         
         //recupera a instancia do novo objeto
         $obj = $this->actions[$class];
@@ -59,5 +59,3 @@ class typeAction extends classes\Classes\Object implements actionInterface{
         
     }
 }
-
-?>

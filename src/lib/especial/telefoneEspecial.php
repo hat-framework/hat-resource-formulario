@@ -4,7 +4,7 @@ class telefoneEspecial extends especialInterface{
     
     public function validate($campo, &$valor){
         if(trim($valor) === "") {return true;}
-        $valor = str_replace(array('(', ')', " ", "-"), "", $valor);
+        $valor = str_replace(array('(', ')', " ", "-", "_"), "", $valor);
         if(!is_numeric($valor)){
             $this->setErrorMessage("O telefone ($valor) não pode conter letras");
             return false;

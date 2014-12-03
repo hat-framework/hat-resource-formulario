@@ -21,5 +21,3 @@ class bitType extends typeInterface{
         die(__CLASS__);
     }
 }
-
-?>

@@ -14,13 +14,10 @@ class varcharType extends typeInterface{
         if($size >= 200){
             $nm = GetPlainName($name);
             $this->form->textarea($name, $caption, $value, $desc, "onkeyup=\"countChar(this, $size, 'v$nm');\" size =\"$size\"");
-            
-            $this->LoadResource('html', 'html');
-            $this->html->LoadJs(URL_JS.'/lib/formulario/countchar');
+            return $this->LoadResource('html', 'html')->LoadJs(URL_JS.'/lib/formulario/countchar');
         }
-        else {
-            $extra = (isset($array['size']))?"maxlength='{$array['size']}'":"";
-            $this->form->text($name, $caption, $value, $desc, $extra);        }
+        $extra = (isset($array['size']))?"maxlength='{$array['size']}'":"";
+        $this->form->text($name, $caption, $value, $desc, $extra);
     }
     
     public function getSearchData(){
@@ -29,5 +26,3 @@ class varcharType extends typeInterface{
         return array();
     }
 }
-
-?>

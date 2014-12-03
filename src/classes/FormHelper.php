@@ -66,9 +66,9 @@ class FormHelper extends classes\Classes\Object{
         $this->html->LoadJs(URL_JS."/lib/formulario/description");
         $this->act    = $action;
         $this->absurl = $abs_url;
-        if($this->formulario == ""){
+        if($this->formulario == "" && defined('LINK')&& defined('CURRENT_ACTION')){
             $this->formulario = ($this->model == "")?str_replace('/','_',LINK)."_".CURRENT_ACTION."_formulario$i":str_replace("/", "_", $this->model);
-        }
+        }else{$this->formulario = "formulario$i";}
         $this->ajax = $ajax;
 	$this->enctype = $enctype;
         $this->started = false;
@@ -80,16 +80,14 @@ class FormHelper extends classes\Classes\Object{
     public function setCurrentForm($form, $force_assign = false){
         if($form != $this->formulario || $force_assign){
             $this->formulario = $form;
-            if(!is_object($this->jval))
-                $this->LoadJsPlugin('formulario/jqueryvalidate', 'jval');
-            $this->jval->setCurrentForm($form);
+            $this->LoadJsPlugin('formulario/jqueryvalidate', 'jval')->setCurrentForm($this->formulario);
         }
     }
     
     private function header(){
         $enctype = $this->Enctype($this->enctype);
-        $form = str_replace('/','_',LINK)."_".CURRENT_ACTION."_form";
-        $var = "<div id='$form' class='div-formulario col-xs-12'>";
+        static $i = 1;
+        $var = "<div id='$this->formulario' class='div-formulario col-xs-12'>";
         
         $v = $this->getMethod();
         if(!$this->omitir){
@@ -439,7 +437,6 @@ class FormHelper extends classes\Classes\Object{
      * Cria um checkbox
      */
      public function checkbox($field_name, $valor, $texto, $selected = "", $description = '', $extra = ""){
-         
         $id      = GetPlainName($valor, false);
         $class   = GetPlainName($field_name, false);
         $name    = $class . "[]";
