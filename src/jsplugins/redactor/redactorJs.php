@@ -12,7 +12,7 @@ class redactorJs extends JsPlugin{
     
     public function init(){
         $this->Html->LoadBowerComponent('redactor/redactor/redactor.min');
-        $this->Html->LoadBowerComponent('hatframework-hatjs-form/redactor.plugin');
+        $this->Html->LoadBowerComponent('hatframework-hatjs-form/redactor/redactor.plugin');
         $this->Html->LoadBowerComponentCss('redactor/redactor/redactor');
     }
 
@@ -64,9 +64,7 @@ class redactorJs extends JsPlugin{
         
         //$file_upload_url = $this->Html->getLink('files/arquivo/upload');
         $image_upload_url = URL_RESOURCES. "upload/lib";
-        $this->Html->LoadJsFunction("
-            new __redactor_plugin('$campo', '$image_upload_url', $this->buttons);
-        ");
+        $this->Html->LoadJsFunction("new __redactor_plugin('$campo', '$image_upload_url', $this->buttons);");
         $this->buttons = '';
     }
 }

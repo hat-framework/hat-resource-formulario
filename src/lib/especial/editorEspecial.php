@@ -12,12 +12,10 @@ class editorEspecial extends especialInterface {
             if(array_key_exists('editor', $array)) $this->editor->setOptions($array['editor']);
             $this->editor->execute($campo, $form);
         }
-        $form->textarea($campo, ucfirst($array['name']), @$array['default'], @$array['description'], "class='edit'");
+        $form->textarea($campo, ucfirst($array['name']), @$array['default'], @$array['description'], '', 'edit');
     }
     
     public function getSearchData(){
         die(__CLASS__);
     }
 }
-
-?>
