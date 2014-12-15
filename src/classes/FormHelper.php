@@ -362,7 +362,9 @@ class FormHelper extends classes\Classes\Object{
                 $descricao .= "<b>$nm: </b> $v <br/><br/>";
             }
         }
-        $this->MakeLabel($name, $caption, $descricao);
+        
+        $desc = $this->MakeDescription($name, $descricao);
+        $this->MakeLabel($name, "$caption $desc");
         foreach($array as $valor => $nome){
             
             //if($br && $this->autobr) $this->printScreen("<br/>");
