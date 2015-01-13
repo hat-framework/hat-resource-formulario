@@ -70,6 +70,11 @@ class validatorResource extends \classes\Interfaces\resource{
                 unset($arr['type']);
             }
             
+            if(array_key_exists('especial', $arr)){
+                if($this->executeAction($field, 'especial', $arr['especial']) === false){$bool = false;}
+                unset($arr['especial']);
+            }
+            
             foreach($arr as $action => $value){
                 if($this->executeAction($field, $action, $value) === false){$bool = false;}
             }
@@ -105,13 +110,14 @@ class validatorResource extends \classes\Interfaces\resource{
 
         if(!array_key_exists($class, $this->action)){$this->action[$class] = new $class();}
 
-        $obj = $this->action[$class];
+        $bool = true;
+        $obj  = $this->action[$class];
         if($obj->validar($field, $value, $this->post[$field]) === false){
             $this->msg_form[$field] = $obj->getErrorMessage();
             $this->setMessage($field, $this->msg_form[$field]);
-            return false;
+            $bool = false;
         }
-        return true;
+        return $bool;
     }
     
     private function genMessages($bool, $dados){

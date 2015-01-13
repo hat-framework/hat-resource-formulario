@@ -3,7 +3,9 @@
 class monetaryEspecial extends especialInterface{
     
     public function validate($campo, &$valor){
-        $valor = str_replace(array("R$ "), array(""), $valor);
+        $valor = str_replace("R$ ", "", $valor);
+        if(false === strstr($valor, ',')){return true;}
+        $valor = str_replace(array('.',','), array('','.'), $valor);
         return true;
     }
     
@@ -15,7 +17,7 @@ class monetaryEspecial extends especialInterface{
         if(trim($value) !== ""){
             $form->setVar($campo, number_format($value, 2, ',', '.'));
         }
-        $form->text($campo, $array["name"], @$array['default'], @$array['description'], "class='$class'");
+        $form->text($campo, $array["name"], @$array['default'], @$array['description'], "class='form-control $class'");
     }
     
     public function getSearchData(){

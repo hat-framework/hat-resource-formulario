@@ -27,18 +27,14 @@ class priceformatJs extends JsPlugin{
     public function load($name){
         static $loaded = false;
         if(!$loaded){
-            $this->Html->LoadJQueryFunction("$('.$this->class').each(function(){
+            /*$this->Html->LoadJQueryFunction("$('.$this->class').each(function(){
                 $(this).number( true, 2, ',','.' );
-            });");
+            });");*/
             $loaded = true;
-        }
-        /*
             $this->Html->LoadJQueryFunction("$('.$this->class').each(function(){
-                alert($(this).attr('id'));
                 $(this).priceFormat({ prefix: 'R$ ',centsSeparator:',',clearPrefix: true, thousandsSeparator: '.'});
             });
             ");
-            
         }
         /*
         if($name != ""){
