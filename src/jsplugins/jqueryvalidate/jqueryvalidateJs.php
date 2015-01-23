@@ -24,7 +24,7 @@ class jqueryvalidateJs extends JsPlugin{
     
     public function LoadExtension($extname){
         $url = \classes\Classes\Registered::getResourceLocationUrl('formulario');
-        $this->html->LoadJs("$url/src/jsplugins/jqueryvalidate/lib/$extname");
+        $this->Html->LoadJs("$url/src/jsplugins/jqueryvalidate/lib/$extname");
     }
     
     static private $instance;
