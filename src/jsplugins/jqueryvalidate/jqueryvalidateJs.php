@@ -14,10 +14,17 @@ class jqueryvalidateJs extends JsPlugin{
     public function init() {
         $this->LoadResource("html", "Html");
         $this->LoadJsPlugin('jqueryui/blockui', 'bui');
-        $this->Html->LoadBowerComponent("hatframework-hatjs-form/clearform");
-        $this->Html->LoadBowerComponent("jquery-maskedinput/dist/jquery.maskedinput.min");
-        $this->Html->LoadBowerComponent("jquery-validation/dist/jquery.validate.min");
-        $this->Html->LoadBowerComponent("jquery-validation/dist/additional-methods.min");
+        $this->Html->LoadBowerComponent(array(
+            "hatframework-hatjs-form/clearform",
+            "jquery-maskedinput/dist/jquery.maskedinput.min",
+            "jquery-validation/dist/jquery.validate.min",
+            "jquery-validation/dist/additional-methods.min"
+        ));
+    }
+    
+    public function LoadExtension($extname){
+        $url = \classes\Classes\Registered::getResourceLocationUrl('formulario');
+        $this->html->LoadJs("$url/src/jsplugins/jqueryvalidate/lib/$extname");
     }
     
     static private $instance;
@@ -106,8 +113,9 @@ class jqueryvalidateJs extends JsPlugin{
                 tform.find('#v'+label.attr('for')).removeClass('erro').addClass('valid_msg');
             },
             errorPlacement: function(label, element) {
-                tform.find('#v'+label.attr('for')).parent().addClass('has-error').removeClass('has-success');
-                tform.find('#v'+label.attr('for')).html(label.text()).removeClass('valid_msg').addClass('erro'); 
+                var id = '#v'+element.attr('id');
+                tform.find(id).parent().addClass('has-error').removeClass('has-success');
+                tform.find(id).html(label.text()).removeClass('valid_msg').addClass('erro'); 
             }";
         }
 

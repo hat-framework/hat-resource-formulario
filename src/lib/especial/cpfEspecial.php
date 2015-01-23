@@ -18,7 +18,7 @@ class cpfEspecial extends especialInterface{
         $validation = "cpf:true";
         $message    = "cpf: 'CPF inválido, informe no formato 999.999.999-99'";
         
-        $this->LoadJsPlugin("formulario/jqueryvalidate", 'jsval');
+        $this->LoadJsPlugin("formulario/jqueryvalidate", 'jsval')->LoadExtension('cpf');
         $this->jsval->addMask("$('#$campo').mask('999.999.999-99');");
         $this->jsval->addValidation($campo, $validation, $message);
         $form->text($campo, $array['name'],'', @$array['description']);
