@@ -626,7 +626,7 @@ class FormHelper extends classes\Classes\Object{
                     . 'title="'.$descricao.'">'
                     . '<span class="glyphicon glyphicon-question-sign desc"></span>'
                     . '</a>';
-            $this->LoadResource('html', 'html')->LoadJQueryFunction('$("[data-toggle=tooltip").tooltip();');
+            $this->LoadResource('html', 'html')->LoadJQueryFunction('$("[data-toggle=tooltip]").tooltip();');
         
         return ($c . $var);
     }
