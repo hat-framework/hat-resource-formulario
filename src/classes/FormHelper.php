@@ -50,11 +50,12 @@ class FormHelper extends classes\Classes\Object{
     
     private $method = "post";
     public function setMethod($method){
-        if(!in_array($method, array('post', 'get'))) return;
+        if(!in_array($method, array('post', 'get'))) {return;}
         $this->method = $method;
         if($this->method == 'get'){
+            $this->post = $_GET;
             $this->absurl = true;
-        }
+        }else{$this->post = $_POST;}
     }
 
     /*
@@ -106,7 +107,8 @@ class FormHelper extends classes\Classes\Object{
             else                $this->action = $this->act;
         }
         else{
-            $this->action = "index.php";
+            $u = (defined('URL'))?URL:"";
+            $this->action = "{$u}index.php";
             $v = $this->hidden("url", "$this->act");
         }
         return $v;
@@ -129,15 +131,15 @@ class FormHelper extends classes\Classes\Object{
         
         $this->CloseAllFieldSets();
         $var = "";
-        if(!$this->omitir)$var = "</form>";
+        if(!$this->omitir){$var = "</form>";}
         $var .= "</div> $this->append";
         $this->printScreen($var);
         
-        $var = $this->flush($this->isprintable);
+        $v = $this->flush($this->isprintable);
         $this->genValidation();
         //$this->html->Flush(); 
         $this->reset();
-        return $var;
+        return $v;
         
     }
     
@@ -175,8 +177,8 @@ class FormHelper extends classes\Classes\Object{
     }
     
     public function setVars($vars = "", $valor = "", $force_null = false){
-        if($valor != "" || $force_null) $this->vars[$vars] = $valor;
-        elseif(is_array($vars))         $this->vars        = $vars;
+        if($valor != "" || $force_null) {$this->vars[$vars] = $valor;}
+        elseif(is_array($vars))         {$this->vars        = $vars;}
     }
 
     public function setDados($dados = ""){
@@ -200,8 +202,6 @@ class FormHelper extends classes\Classes\Object{
         if(array_key_exists($key, $this->vars)){
            $ret = $this->vars[$key];
         }
-        //print_r($ret);
-        //echo "<br/>";
         return $ret;
     }
     
@@ -278,7 +278,7 @@ class FormHelper extends classes\Classes\Object{
         
         $id = GetPlainName($name, false);
         //$question  =  $this->validator->FieldText($id);
-        //$temp      = array_key_exists($id, $_POST) ? $_POST[$id] : "";
+        //$temp      = array_key_exists($id, $this->post) ? $this->post[$id] : "";
         $temp      = array_key_exists($name, $this->vars) ? $this->vars[$name] : "";
         $valor     =  ($temp == "")? $value : $temp;
         $this->hasPlaceholder($name, $caption, $extras);
@@ -297,7 +297,7 @@ class FormHelper extends classes\Classes\Object{
             //if(MOBILE) $this->LoadJsPlugin ('formulario/autosize', 'asz');
             $id = GetPlainName($name, false);
             $temp  = array_key_exists($name, $this->vars) ? $this->vars[$name] : $value;
-            $valor = (array_key_exists($id, $_POST))? $_POST[$id] : $temp;
+            $valor = (array_key_exists($id, $this->post))? $this->post[$id] : $temp;
             $ex    = "description='$desc' cols='23' rows='8'";
             $extra = trim((trim($extra) == "")?$ex:"$extra $ex");
             $var = "<textarea class='form-control $class' $extra id='$id' name='$id'>$valor</textarea>";
@@ -324,7 +324,7 @@ class FormHelper extends classes\Classes\Object{
                     $var .= "<option value='".$value."'";
                     
                     //se é uma variavel post
-                    if(array_key_exists($id, $_POST) && $_POST[$id] == $value){
+                    if(array_key_exists($id, $this->post) && $this->post[$id] == $value){
                         $var .= $selected_tag;
                     }
                     
@@ -392,8 +392,8 @@ class FormHelper extends classes\Classes\Object{
         //Deveria estar checkado?
         //echo "$field_name - $valor - $selected - $formval<br/>";
         if("$valor" != ""){
-            if(array_key_exists($id, $_POST)){
-                if($_POST[$id] == "$valor"){$v .= " checked ";}
+            if(array_key_exists($id, $this->post)){
+                if($this->post[$id] == "$valor"){$v .= " checked ";}
             }
             elseif($formval != ""){
                 if("$valor" == "$formval") $v .= " checked ";
@@ -413,7 +413,7 @@ class FormHelper extends classes\Classes\Object{
    public function checkCamp($name, $array, $selected = array(), $caption = "", $desc = "", $extra = ""){
         $this->lastField = "";
         $id   = GetPlainName($name, false);
-        $this->printScreen("<div class='form_item radiocamp' id='f_$id'>");
+        $this->printScreen("<div class='form_item radiocontainer' id='f_$id'>");
         $descricao = $desc;
         if(is_array($desc)){
             $descricao = $desc[$name]."<br/><br/>";
@@ -424,12 +424,15 @@ class FormHelper extends classes\Classes\Object{
         }
         $this->MakeLabel($name, $caption, $descricao);
         $name = "$name"."[]";
+        
+        $this->printScreen("<div class='radiocamp'>");
         foreach($array as $valor => $nome){
             $select = (is_array($selected) && in_array($valor, $selected))?$valor:$selected;
             //$vl = is_array($desc)? array_key_exists($valor, $desc)?$desc[$valor]:"":"";
             $vl = "";
             $this->checkbox($name, $valor, $nome, $select, $vl);
         }
+        $this->printScreen("</div>");
         $this->started = true;
         $this->printScreen("</div>");
         
@@ -445,21 +448,25 @@ class FormHelper extends classes\Classes\Object{
         $var     = "<input type='checkbox' $extra name='$name' class='$class' id='$id' value='$valor'";
 	$nome    = str_replace("[]", "", $name);
         $formval =  $this->getVar($field_name);
-        if(array_key_exists($nome, $_POST)){
-            if(is_array($_POST[$nome])){
-                $qtd = count($_POST[$nome]);
+        if($formval === ""){
+            $formval = $this->getVar($nome);
+        }
+        
+        if(array_key_exists($nome, $this->post)){
+            if(is_array($this->post[$nome])){
+                $qtd = count($this->post[$nome]);
                 for($i = 0; $i < $qtd; $i++ ){
-                    if($_POST[$nome][$i] == $valor){
+                    if($this->post[$nome][$i] == $valor){
                         $var .= " checked='checked' ";
                         break;
                     }
                 }
             }
-            elseif($_POST[$nome] == $valor) $var .= " checked='checked' ";
+            elseif($this->post[$nome] == $valor) $var .= " checked='checked' ";
         }
-        elseif($valor == $formval  && $formval  != "") {$var .= "checked='checked' ";}
-        elseif($valor == $selected && $selected != "") {$var .= "checked='checked' ";}
-        
+        elseif($valor == $formval  && $formval  != "")          {$var .= "checked='checked' ";}
+        elseif($valor == $selected && $selected != "")          {$var .= "checked='checked' ";}
+        elseif(is_array($formval) && in_array($valor, $formval)){$var .= "checked='checked' ";}
         
         $desc = $this->MakeDescription($field_name, $description);
         $var .= " /> <span>$texto</span> ";
@@ -478,7 +485,7 @@ class FormHelper extends classes\Classes\Object{
         $id = GetPlainName($name, false) ;
         $id = "$id$multi";
         
-        $temp      = array_key_exists($id, $_POST) ? $_POST[$id] : "";
+        $temp      = array_key_exists($id, $this->post) ? $this->post[$id] : "";
         $temp      = array_key_exists($name, $this->vars) ? $this->vars[$name] : $temp;
         $valor     = ($valor != "")? $valor : $temp;
         if(is_array($valor)) $valor = "";
