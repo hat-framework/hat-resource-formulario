@@ -20,6 +20,7 @@ class FormHelper extends classes\Classes\Object{
     private $model  = "";
     private $dados = array();
     private $nnform = array();
+    private $post = array();
     private $action = "";
     private static $i = 0;
     
