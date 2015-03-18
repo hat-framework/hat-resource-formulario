@@ -4,7 +4,7 @@ class timestampType extends typeInterface{
     
     public $form_type = "text";
     public function validate($campo, &$timestamp){
-        if($timestamp == "") return true;
+        if(trim($timestamp) == "" || $timestamp === "FUNC_NULL") {return true;}
         
         $timest = explode(" ", $timestamp);
         $date = @$timest[0];
