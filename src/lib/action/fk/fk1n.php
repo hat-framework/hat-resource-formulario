@@ -12,9 +12,9 @@ class fk1n extends fk{
         
         $count = $this->model_obj->getCount($this->filtro);
         $type  = (array_key_exists('select_type', $arr))?$arr['select_type']:"simple";
-        if($type == 'simple' && ($count > 0 || $count < 20))
+        if($type == 'simple' && ($count > 0 || $count < 20)){
              $this->common_input();
-        else $this->token_input();
+        }else{$this->token_input($type);}
     }
     
     public function validar($value, &$array) {
@@ -72,9 +72,8 @@ class fk1n extends fk{
         $form->select($this->names, $out, $this->selected, $this->name_arr, $this->desc);
     }
     
-    private function token_input(){
+    private function token_input($type){
         $this->LoadJsPlugin("formulario/jqtokeninput", "ac");
-        $value = "";
         $data = $this->getData();
         if(is_array($data) && !empty ($data)){
             $k1 = array_keys($data);
@@ -82,7 +81,6 @@ class fk1n extends fk{
 
             $k1 = array_shift($k1);
             $k2 = array_shift($k2);
-            $value = $k1;
             $this->ac->addItem($k1, $k2);
         }elseif($this->selected != "" && !is_array($this->selected)){
             $ks = $this->keys;
@@ -95,16 +93,34 @@ class fk1n extends fk{
             }
         }
 
+        $num   = ($type === 'multiple')?"":1;
         $form  = $this->getForm();
         $model = $this->getModel();
-        $value = $this->getValue();
-        $name  = $this->getName();
+        $dados = $this->getValue();
         $this->ac->setForm($form);
         $this->ac->setQuery($this->filtro);
-        $this->ac->autocomplete($this->names, $model, $this->keys, 10, 1, $value['model']);
-        $form->text($this->names, $this->name_arr, $value, $this->desc);
+        $this->completeSelected($form, $dados['model']);
+        $this->ac->autocomplete($this->names, $model, $this->keys, 10, $num, $dados['model']);
+        $form->text($this->names, $this->name_arr, '', $this->desc);
+    }
+    
+    private function completeSelected($form, $model){
+        if(!isset($this->keys[0]) || !isset($this->keys[1])){return;}
+        $var = $form->getVar($this->names);
+        if(trim($var) === ""){return;}
+        $ee = explode(",", $var);
+        foreach($ee as $i => &$e){
+            $e = trim($e);
+            if($e !== ""){continue;}
+            unset($ee[$i]);
+        }
+        $in   = implode("','", $ee);
+        $k1   = $this->keys[0];
+        $k2   = $this->keys[1];
+        $data = $this->LoadModel($model, 'fktmpmodel')->selecionar($this->keys, "$k1 IN ('$in')");
+        foreach($data as $dt){
+            $this->ac->addItem($dt[$k1], $dt[$k2]);
+        }
     }
     
 }
-
-?>

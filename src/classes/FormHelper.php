@@ -283,7 +283,7 @@ class FormHelper extends classes\Classes\Object{
         $temp      = array_key_exists($name, $this->vars) ? $this->vars[$name] : "";
         $valor     =  ($temp == "")? $value : $temp;
         $this->hasPlaceholder($name, $caption, $extras);
-        if(is_array($valor)) $valor = "";
+        if(is_array($valor)) {$valor = "";}
         $var = "<input type='$type' $extras id='$id' name='$id' class='form-control' value='$valor' description='$desc'/>";
         $this->started = true;
         $this->printfield($name, $caption, $var, $desc);
