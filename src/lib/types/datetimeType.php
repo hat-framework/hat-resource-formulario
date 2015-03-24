@@ -4,7 +4,8 @@ class datetimeType extends typeInterface{
     
     public $form_type = "text";
     public function validate($campo, &$timestamp){
-        if(trim($timestamp) == "") return true;
+        $timestamp = trim($timestamp);
+        if(in_array($timestamp, array("FUNC_NOW()", ''))){return true;}
         $this->format($timestamp);
         
         $matches = array();
