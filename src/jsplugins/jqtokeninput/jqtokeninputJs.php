@@ -5,6 +5,7 @@ class jqtokeninputJs extends JsPlugin{
 
     static private $instance;
     private $prePopulate = array();
+    private $added       = array();
     public static function getInstanceOf($plugin){
         $class_name = __CLASS__;
         if (!isset(self::$instance)) {
@@ -71,6 +72,7 @@ class jqtokeninputJs extends JsPlugin{
         }
         $this->jsval->addToReset(" $('$inputname').tokenInput('clear'); $add");
         $this->prePopulate = array();
+        $this->added       = array();
     }
     
     public function getInputName($campo){
@@ -78,6 +80,8 @@ class jqtokeninputJs extends JsPlugin{
     }
     
     public function addItem($id, $name, $readyonly = false){
+        if(isset( $this->added[$id])){return;}
+        $this->added[$id] = '';
         $readyonly = ($readyonly)?",'readyonly':true":'';
         $this->prePopulate[] = "{id:'$id',name:'$name'$readyonly}";
     }

@@ -12,7 +12,7 @@ class fk1n extends fk{
         
         $count = $this->model_obj->getCount($this->filtro);
         $type  = (array_key_exists('select_type', $arr))?$arr['select_type']:"simple";
-        if($type == 'simple' && ($count > 0 || $count < 20)){
+        if($type == 'simple' && ($count < 20)){
              $this->common_input();
         }else{$this->token_input($type);}
     }
@@ -106,8 +106,11 @@ class fk1n extends fk{
     
     private function completeSelected($form, $model){
         if(!isset($this->keys[0]) || !isset($this->keys[1])){return;}
-        $var = $form->getVar($this->names);
-        if(trim($var) === ""){return;}
+        $var = $form->getVar("__$this->names");
+        if(trim($var) === ""){
+            $var = $form->getVar($this->names);
+            if(trim($var) === ""){return;}
+        }
         $ee = explode(",", $var);
         foreach($ee as $i => &$e){
             $e = trim($e);
