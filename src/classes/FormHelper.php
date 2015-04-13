@@ -89,7 +89,7 @@ class FormHelper extends classes\Classes\Object{
     private function header(){
         $enctype = $this->Enctype($this->enctype);
         static $i = 1;
-        $var = "<div id='$this->formulario' class='div-formulario col-xs-12'>";
+        $var = "<div id='c_$this->formulario' class='div-formulario col-xs-12'>";
         
         $v = $this->getMethod();
         if(!$this->omitir){
@@ -554,8 +554,11 @@ class FormHelper extends classes\Classes\Object{
         $this->Button($name = 'limpar', $value = 'Limpar');
     }
     
-    public function Button($name, $value, $class = ""){
-        $var = "<div class='btn-container'><input type='button' id='$name' value='$value' class='btn $class'/></div>";
+    public function Button($name, $value, $class = "", $icon = ''){
+        if($icon !== ''){$icon = "<i class='$icon'></i>";}
+        $var = "<div class='btn-container'>".
+                    "<button $class id='$name'>$icon $value</button>".
+                "</div>";
         $this->lastField = $var;
         $this->printScreen($var);
     }
@@ -575,8 +578,8 @@ class FormHelper extends classes\Classes\Object{
         
         $class = classes\Classes\Template::getClass('formbutton');
         if($class === ""){$class = 'btn btn-inverse';}
-        
-        $var = "<div class='btn-container'><input name='$field_name' type='submit' id='$field_name' value='$value' $extra class='$class'/></div>";
+        $cls = (strstr($extra, 'class'))?"":"class='$class'";
+        $var = "<div class='btn-container'><input name='$field_name' type='submit' id='$field_name' value='$value' $extra $cls/></div>";
         $this->lastField = $var;
         $this->printScreen($var);
     }
@@ -664,13 +667,13 @@ class FormHelper extends classes\Classes\Object{
     }
     
     private function hasPlaceholder($name, &$caption, &$str){
-        $dado  = $this->getDado($name);
-        if(isset($dado['placeholder']) && $dado['placeholder'] === true){
-            $str .= "placeholder='$caption'";
+        $dado    = $this->getDado($name);
+        if(!isset($dado['placeholder']) || $dado['placeholder'] === false){return false;}
+        $str    .= "placeholder='$caption'";
+        if($dado['placeholder'] === true){
             $caption = "";
-            return true;
         }
-        return false;
+        return true;
     }
     
     private function printScreen($value){

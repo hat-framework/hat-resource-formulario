@@ -4,17 +4,21 @@ use classes\Classes\Object;
 class buttonAction extends classes\Classes\Object implements actionInterface{
     
     public function executar($name, $type, $array, $form){
-        $method = (isset($array['button_type']) && method_exists($form, $array['button_type']))?$array['button_type']:"submit";
-        $id     = ($method == "submit")?"enviar":GetPlainName($name);
         $extra  = array();
+        $method = 'submit';
+        $icon   = "";
         if(isset($array['button']) && is_array($array['button'])){
+            $mtdname = isset($array['button']['button_type'])?$array['button']['button_type']:"submit";
+            $method  = (method_exists($form, $mtdname))?$mtdname:"submit";
+            $icon    = (isset($array['button']['icon']))?$array['button']['icon']:'';
             foreach($type['attrs'] as $attr => $val){
                 $extra[] = "$attr='$val'";
             }
             $type = $type['text'];
         }
-        $extra = implode(" ", $extra);
-        $form->$method($id, $type, $extra);
+        $id    = ($method == "submit")?"enviar":GetPlainName($name);
+        $ex    = implode(" ", $extra);
+        $form->$method($id, $type, $ex, $icon);
     }
     
     public function validar($name, $type, &$array){
