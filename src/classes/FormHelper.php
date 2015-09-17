@@ -319,7 +319,6 @@ class FormHelper extends classes\Classes\Object{
             $selected_tag = " class='selected' selected=true ";
             /*if($selected != "")
                 $var .= "<option value=''>Selecione uma opção</option>";*/
-            
             if(!empty ($arr)){
                 foreach($arr as $value => $key){
                     $var .= "<option value='".$value."'";
@@ -330,9 +329,13 @@ class FormHelper extends classes\Classes\Object{
                     }
                     
                     //se valor foi selecionado previamente
-                    elseif(array_key_exists ($name, $this->vars) && is_array($this->vars[$name])){
-                        if(array_key_exists($value, $this->vars[$name]))
-                            $var .= $selected_tag;
+                    elseif(array_key_exists ($name, $this->vars)){
+                        if(is_array($this->vars[$name])){
+                            if(array_key_exists($value, $this->vars[$name])){
+                                $var .= $selected_tag;
+                            }
+                        }
+                        else{$var .= $selected_tag;}
                     }
                     
                     //se o valor deveria ser selecionado por default
