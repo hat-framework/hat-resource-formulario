@@ -672,10 +672,11 @@ class FormHelper extends classes\Classes\Object{
     private function hasPlaceholder($name, &$caption, &$str){
         $dado    = $this->getDado($name);
         if(!isset($dado['placeholder']) || $dado['placeholder'] === false){return false;}
-        $str    .= "placeholder='$caption'";
+        
         if($dado['placeholder'] === true){
+            $str    .= "placeholder='$caption'";
             $caption = "";
-        }
+        }else{ $str .= "placeholder='{$dado['placeholder']}'";}
         return true;
     }
     
