@@ -335,12 +335,15 @@ class FormHelper extends classes\Classes\Object{
                                 $var .= $selected_tag;
                             }
                         }
-                        else{$var .= $selected_tag;}
+                        elseif($this->vars[$name] == $value){
+                            $var .= $selected_tag;
+                        }
                     }
                     
                     //se o valor deveria ser selecionado por default
-                    elseif($value == $selected && $selected != "")
+                    elseif($value == $selected && $selected != ""){
                          $var .= $selected_tag;
+                    }
                     
                     $var .= ">".$key."</option>";
                 }

@@ -40,8 +40,10 @@ class jqtokeninputModel extends classes\Classes\Object{
         
         $count = count($keys);
         foreach($var as $array){
-            $out[$i]['id']   = $antes . " " .$array[$k1];
-            $out[$i]['name'] = "$antes ";
+            //$out[$i]['id']   = $antes . " " .$array[$k1];
+            //$out[$i]['name'] = "$antes ";
+            $out[$i]['name'] = "";
+            $out[$i]['id']   = $array[$k1];
             //$out[$i]['name'] = "<div class='tokeninput_item'>$antes ";
             if($count > 1){
                 $j = 1;
