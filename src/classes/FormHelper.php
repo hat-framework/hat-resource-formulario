@@ -310,49 +310,61 @@ class FormHelper extends classes\Classes\Object{
     /*
      * cria um select
      */
-    public function select($name, $arr, $selected = "", $caption = "", $desc = "", $extra = ""){
+    public function select($name, $arr, $selected = "", $caption = "", $desc = "", $extraClass = ""){
             $multi = strstr($name, '[]');
             $id = GetPlainName($name, false) ;
             $idname = "$id$multi";
-            
-            $var  = "<select id='$id' class='$id form-control' name='$idname'>";
-            $selected_tag = " class='selected' selected=true ";
-            /*if($selected != "")
-                $var .= "<option value=''>Selecione uma opção</option>";*/
-            if(!empty ($arr)){
-                foreach($arr as $value => $key){
-                    $var .= "<option value='".$value."'";
-                    
-                    //se é uma variavel post
-                    if(array_key_exists($id, $this->post) && $this->post[$id] == $value){
-                        $var .= $selected_tag;
-                    }
-                    
-                    //se valor foi selecionado previamente
-                    elseif(array_key_exists ($name, $this->vars)){
-                        if(is_array($this->vars[$name])){
-                            if(array_key_exists($value, $this->vars[$name])){
-                                $var .= $selected_tag;
-                            }
-                        }
-                        elseif($this->vars[$name] == $value){
-                            $var .= $selected_tag;
-                        }
-                    }
-                    
-                    //se o valor deveria ser selecionado por default
-                    elseif($value == $selected && $selected != ""){
-                         $var .= $selected_tag;
-                    }
-                    
-                    $var .= ">".$key."</option>";
-                }
+            $class  = $id;
+            if(count($arr) > 5){
+                $temp = $this->LoadJsPlugin('formulario/choseninput', 'csn')->getClass();
+                $class ="$class $temp";
             }
+            if(!is_array($extraClass) && trim($extraClass !== "")){$class ="$class $extraClass";}
+            $cls  = trim($class);
+            $var  = "<select id='$id' class='$cls form-control' name='$idname'>";
+            $var .= $this->drawSelectOptions($arr, $id, $name, $selected);
             $var .= "</select>";
             $this->started = true;
-            $desc = is_array($desc)?implode("<br/>", $desc):$desc;
-            $this->printfield($name, $caption, $var, $desc);
+            $description = is_array($desc)?implode("<br/>", $desc):$desc;
+            $this->printfield($name, $caption, $var, $description);
     }
+    
+            private function drawSelectOptions($arr, $id, $name, $selected){
+                if(empty ($arr)){return "";}
+                $selected_tag = " class='selected' selected=true ";
+                $var = "";
+                foreach($arr as $value => $key){
+                    $var .= "<option value='".$value."'";
+                    if($this->detectSelected($value, $id, $name, $selected)){
+                        $var .= $selected_tag;
+                    }
+                    $var .= ">".$key."</option>";
+                }
+                return $var;
+            }
+            
+                    private function detectSelected($value, $id, $name, $selected){
+                         //se é uma variavel post
+                        if(array_key_exists($id, $this->post) && $this->post[$id] == $value){
+                            return true;
+                        }
+                        //se valor foi selecionado previamente
+                        elseif(array_key_exists ($name, $this->vars)){
+                            if(is_array($this->vars[$name])){
+                                if(array_key_exists($value, $this->vars[$name])){
+                                    return true;
+                                }
+                            }
+                            elseif($this->vars[$name] == $value){
+                                return true;
+                            }
+                        }
+                        //se o valor deveria ser selecionado por default
+                        elseif($value == $selected && $selected != ""){
+                            return true;
+                        }
+                        return false;
+                    }
     
     public function radioCamp($name, $array, $selected = "", $caption = "", $desc = "", $extra = "", $br = false){
         $this->lastField = "";
@@ -634,16 +646,20 @@ class FormHelper extends classes\Classes\Object{
      */
     private function MakeDescription($campo, $descricao){
         if(is_array($descricao) || trim($descricao) == "") return;
-        
-        $c = (DEBUG)?"\t":"";
-        $campo = GetPlainName($campo, false);
-            $var = '<a '
-                    . 'data-toggle="tooltip" '
-                    . 'data-placement="right" '
-                    . 'title="'.$descricao.'">'
-                    . '<span class="glyphicon glyphicon-question-sign desc"></span>'
-                    . '</a>';
+        static $loaded = false;
+        if($loaded === false){
             $this->LoadResource('html', 'html')->LoadJQueryFunction('$("[data-toggle=tooltip]").tooltip();');
+            $loaded = true;
+        }    
+        $c     = (DEBUG)?"\t":"";
+        $campo = GetPlainName($campo, false);
+        $var   = '<a '
+                . 'data-toggle="tooltip" '
+                . 'data-placement="right" '
+                . 'title="'.$descricao.'">'
+                . '<span class="glyphicon glyphicon-question-sign desc"></span>'
+                . '</a>';
+            
         
         return ($c . $var);
     }
