@@ -166,6 +166,9 @@ function getEndereco(cep_id, rua_id, bairro_id, cidade_id, estado_id){
         $('#'+bairro_id).val(result["bairro"]);
         $('#'+cidade_id).val(result["cidade"]);
         $('#'+estado_id).val(result["uf"]);
+        try{
+            $('#'+estado_id).trigger('chosen:updated');
+        }catch(e){}
     };
     
     return cepUniqueObjectWebservice.getEndereco(cep, fn);
