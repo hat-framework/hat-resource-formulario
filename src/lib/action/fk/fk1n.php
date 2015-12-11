@@ -55,12 +55,11 @@ class fk1n extends fk{
             }
 
             private function simple_input($class = ""){
-                $arr = $this->getArray();
-                $k1 = array_shift($this->keys);
-                $k2 = array_shift($this->keys);
-                $order = array_key_exists('select_order', $arr)?$arr['select_order']:"$k2 ASC";
-                $dados = $this->model_obj->selecionar(array($k1, $k2), $this->filtro, '','', $order);
-
+                $arr    = $this->getArray();
+                $k1     = @$this->keys[0];
+                $k2     = @$this->keys[1];
+                $order  = array_key_exists('select_order', $arr)?$arr['select_order']:"$k2 ASC";
+                $dados  = $this->model_obj->selecionar($this->keys, $this->filtro, '','', $order);
                 //echo $this->model_obj->db->getSentenca(); print_r($dados);
                 $out = array();
                 if(!array_key_exists('notnull', $arr) || $arr['notnull'] == false){
@@ -70,13 +69,26 @@ class fk1n extends fk{
                 }
 
                 if(!empty($dados)){
-                    foreach($dados as $temp_arr){
-                        $out[$temp_arr[$k1]] = $temp_arr[$k2];
-                    }
+                    $this->prepareArray($dados, $k1, $k2, $out);
                 }
                 $form = $this->getForm();
                 $form->select($this->names, $out, $this->selected, $this->name_arr, $this->desc, $class);
             }
+            
+                    private function prepareArray($dados, $k1, $k2, &$out){
+                        $out = array();
+                        foreach($dados as $temp_arr){
+                            $key   = $temp_arr[$k1];
+                            $value = $temp_arr[$k2];
+                            unset($temp_arr[$k1]);
+                            unset($temp_arr[$k2]);
+                            $out[$key] = $value;
+                            if(empty($temp_arr)){continue;}
+                            foreach($temp_arr as $temp){
+                                $out[$key] .= " ( $temp )";
+                            }
+                        }
+                    }
 
             private function token_input($type){
                 $this->LoadJsPlugin("formulario/jqtokeninput", "ac");
