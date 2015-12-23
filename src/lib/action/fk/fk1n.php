@@ -6,7 +6,7 @@ class fk1n extends fk{
         $this->initVars();
         $arr = $this->getArray();
         if(array_key_exists('filther', $arr)){
-            $fk1n = new FK1nModel();
+            $fk1n = new \classes\Model\FK1nModel();
             $this->filtro = $fk1n->filther($arr['filther']);
         }
         
