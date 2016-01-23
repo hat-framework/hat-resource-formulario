@@ -7,20 +7,39 @@ class datetimeType extends typeInterface{
         $timestamp = trim($timestamp);
         if(in_array($timestamp, array("FUNC_NOW()", ''))){return true;}
         $this->format($timestamp);
-        
         $matches = array();
         if (!preg_match("/^(\d{4})-(\d{2})-(\d{2}) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/", $timestamp, $matches)) {
-            $this->setErrorMessage("Data ($timestamp) no formato inválido, Digite (DD/MM/AAAA HH:MM:SS) - ". count($e));
+            $this->setErrorMessage("Data ($timestamp) no formato inválido, Digite (DD/MM/AAAA HH:MM:SS) - ". count($matches));
             return false;
         }
         
         if(!checkdate($matches[2], $matches[3], $matches[1])){
-            $this->setErrorMessage("Data ($timestamp) no inválida, Digite (DD/MM/AAAA HH:MM:SS) - ". count($e));
+            $this->setErrorMessage("Data ($timestamp) no inválida, Digite (DD/MM/AAAA HH:MM:SS) - ". count($matches));
             return false;
         }
         
         return true;
     }
+    
+            public function format(&$timestamp){
+                if(strstr($timestamp, "T")) {$timestamp = str_replace("T", " ", $timestamp);}
+                $t  = \classes\Classes\timeResource::getDbDate($timestamp);
+                $e  = explode(' ', $t);
+                while (count($e) > 2){
+                    array_pop($e);
+                }
+                $timestamp = implode(" ", $e);
+                if(count($e) == 2){
+                    $e2 = explode(':', $e[1]);
+                    if(count($e2) == 2){
+                        $timestamp .= ':00'; 
+                    }
+                }
+            }
+            
+                    private function prepareTimestamp($timestamp, &$e){
+                        
+                    }
     
     public function formulario($name, $array, $caption = "", $value = "", $desc = ""){
         $var = $this->form->getVar($name);
@@ -47,18 +66,4 @@ class datetimeType extends typeInterface{
         die(__CLASS__);
     }
     
-    public function format(&$timestamp){
-        if(strstr($timestamp, "T")) $timestamp = str_replace("T", " ", $timestamp);
-        $timestamp = \classes\Classes\timeResource::getDbDate($timestamp);
-        
-        $e = explode(' ', $timestamp);
-        if(count($e) == 2){ 
-            $e = explode(':', $e[1]);
-            if(count($e) == 2){
-                $timestamp .= ':00'; 
-            }
-        }
-    }
 }
-
-?>
