@@ -1,5 +1,4 @@
 <?php
-//define("FORM_DIR", realpath(dirname(__FILE__)) . "/");
 
 class formularioResource extends \classes\Interfaces\resource{
     
@@ -59,8 +58,8 @@ class formularioResource extends \classes\Interfaces\resource{
         
         //cria os campos do formulario
         $this->LoadModel($model, "model");
-        $dados = $this->model->getDados();
-        $dados = array_merge_recursive($dados, $modify);
+        $temp  = $this->model->getDados();
+        $dados = array_merge_recursive($temp, $modify);
         $this->genForm($dados);
 
         return $this->form->Close();
@@ -72,36 +71,36 @@ class formularioResource extends \classes\Interfaces\resource{
      * Útil quando se deseja adicionar campos ao formulário dinâmicamente
      */
     public function genForm($dados, $values = array()){
-
         $this->form->setDados($dados);
-        if(!empty($values)) $this->form->setVars($values);
+        if(!empty($values)) {$this->form->setVars($values);}
         foreach($dados as $name => $array){
-            if(array_key_exists("ai", $array)&&$array['ai']) $array['especial'] = 'hidden';
-            elseif(array_key_exists("private", $array)&&$array['private']) continue;
-            elseif(array_key_exists("fkey", $array)) unset($array['type']);
-            if(array_key_exists("default", $array)){
-                if(!$this->form->hasVar($name)){
-                    $varvalue = $array['default'];
-                    $this->form->setVars($name, $varvalue);
-                }
+            if(array_key_exists("ai", $array)&&$array['ai']) {$array['especial'] = 'hidden';}
+            elseif(array_key_exists("private", $array)&&$array['private']) {continue;}
+            elseif(array_key_exists("fkey", $array)) {unset($array['type']);}
+            if(array_key_exists("default", $array) && !$this->form->hasVar($name)){
+                $varvalue = $array['default'];
+                $this->form->setVars($name, $varvalue);
             }
-
             $this->executeAction($name, $array);
         }
-        
-        foreach(self::$act as $class){
-            $obj = @$this->action[$class];
-            if(!is_object($obj)) continue;
-            $obj->flush();
-        }
+        $this->doFlush();
     }
+    
+            private function doFlush(){
+                 foreach(self::$act as $class){
+                    $obj = isset($this->action[$class])?$this->action[$class]:null;
+                    if(!is_object($obj)){continue;}
+                    $obj->flush();
+                }
+            }
     
     static $act = array();
     public function executeAction($name, $array){
-        if(empty($array) || !is_array($array)) { print_r($array); die($name);}
+        if(empty($array) || !is_array($array)) {return;}
+        if(isset($array['notnull']) && $array['notnull'] == true){$array['name'] .= " *";}
         foreach($array as $action => $value){
             $class = "$action"."Action";
-            if(!$this->LoadResourceFile("lib/action/$class.php", false))  continue;
+            if(!$this->LoadResourceFile("lib/action/$class.php", false)) {continue;}
             if(!array_key_exists($class, $this->action)) {
                 $this->action[$class] = new $class();
                 self::$act[$class] = $class;
@@ -127,7 +126,7 @@ class formularioResource extends \classes\Interfaces\resource{
     public function NewForm($dados, $values = array(), $modify = array(), $ajax = true, $action = "", $abs_url = false){
         $this->form->Open($action, "", $ajax, $abs_url);
         $this->form->setVars($values);
-        $this->genForm($dados, $modify = array());
+        $this->genForm($dados, $modify);
         return $this->form->Close();
     }
     

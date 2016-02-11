@@ -6,7 +6,7 @@ class especialAction extends classes\Classes\Object implements actionInterface{
     public function executar($name, $type, $array, $form){
         $class = $type."Especial";
         loadFormFile("lib/especial/$class.php");
-        if(!class_exists($class))return;
+        if(!class_exists($class)){return;}
         $obj = new $class();
         $obj->js($name, $array, $form);
     }
@@ -14,8 +14,7 @@ class especialAction extends classes\Classes\Object implements actionInterface{
     public function validar($name, $type, &$array){
         $class = $type."Especial";
         loadFormFile("lib/especial/$class.php");
-        if(!class_exists($class))
-            return false;
+        if(!class_exists($class)){return false;}
 
         $obj = new $class();
         if($obj->validate($name, $array) === false){
