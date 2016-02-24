@@ -76,7 +76,6 @@ class fk1n extends fk{
             }
             
                     private function prepareArray($dados, $k1, $k2, &$out){
-                        $out = array();
                         foreach($dados as $temp_arr){
                             $key   = $temp_arr[$k1];
                             $value = $temp_arr[$k2];
