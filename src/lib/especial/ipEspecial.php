@@ -8,12 +8,10 @@ class ipEspecial extends especialInterface{
     }
     
     public function js($campo, $array, $form){ 
-        
+        $form->hidden($campo, $_SERVER['REMOTE_ADDR']);
     }
     
     public function getSearchData(){
         die(__CLASS__);
     }
 }
-
-?>

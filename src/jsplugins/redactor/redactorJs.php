@@ -30,6 +30,7 @@ class redactorJs extends JsPlugin{
         'font'   => "'formatting', 'fontcolor', 'backcolor'",
         'html'   => "'html'",
     );
+    private $custom = array();
     //private $default_options = array('format', 'image', 'list', 'link', 'font');
     private $default_options = array('format', 'image', 'list', 'link', 'font', 'file', 'video');
     private $buttons = "";
@@ -38,8 +39,11 @@ class redactorJs extends JsPlugin{
         $add = "";
         $this->buttons .= "'fullscreen', ";
         $last = '';
-        foreach($options as $option){
-            if(!array_key_exists($option, $this->options)) continue;
+        foreach($options as $key => $option){
+            if(!array_key_exists($option, $this->options)) {
+                $this->custom[$key] = $option;
+                continue;
+            }
             if(in_array($option, array('file', 'video', 'image'))){
                 $last .= ",".$this->options[$option];
                 continue;
@@ -64,7 +68,8 @@ class redactorJs extends JsPlugin{
         
         //$file_upload_url = $this->Html->getLink('files/arquivo/upload');
         $image_upload_url = URL_RESOURCES. "upload/lib";
-        $this->Html->LoadJsFunction("new __redactor_plugin('$campo', '$image_upload_url', $this->buttons);");
+        $data = json_encode($this->custom);
+        $this->Html->LoadJsFunction("new __redactor_plugin('$campo', '$image_upload_url', $this->buttons, $data);");
         $this->buttons = '';
     }
 }
