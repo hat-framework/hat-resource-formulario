@@ -657,7 +657,7 @@ class FormHelper extends classes\Classes\Object{
                 . 'data-toggle="tooltip" '
                 . 'data-placement="right" '
                 . 'title="'.$descricao.'">'
-                . '<span class="glyphicon glyphicon-question-sign desc"></span>'
+                . '<i class="fa fa-question-circle-o" aria-hidden="true"></i>'
                 . '</a>';
             
         
