@@ -2,26 +2,18 @@
 
 class hideDinamic extends DinamicForm{
 
+    private static $test = array();
     public function execute(){
-        $this->LoadResource('html', 'html');
-        $this->html->LoadJqueryFunction("
-            if($('.$this->target:checked, select.$this->target option:selected').attr('value') == '$this->option'){
-                $('#$this->id').hide();
-            }
-            $('.$this->target').change(function() {
-                if($(this).attr('value') != '$this->option'){
-                   $('#$this->id').slideDown('fast');
-                }else{
-                   $('#$this->id').slideUp('fast');
-                }
-            });
-        ");
+        if(!is_array($this->option)) $this->option = array($this->option);
+        if(!isset(self::$test[$this->target])) self::$test[$this->target] = array();
+        self::$test[$this->target][$this->id] = $this->option;
     }
     
     public function flush() {
-        
+        $obj = new classes\Classes\Object();
+        $html = $obj->LoadResource('html', 'html');
+        $html->LoadJs(URL_JS . "/lib/formulario/hide_dinamic");
+        $html->LoadJqueryFunction("{new hide_dinamic(".  json_encode(self::$test).").bindAll();}");   
     }
     
 }
-
-?>
