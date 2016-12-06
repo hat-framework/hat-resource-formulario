@@ -9,11 +9,13 @@ class hiddenEspecial extends especialInterface{
     public function js($campo, $array, $form){
         $value = (array_key_exists('default', $array))?$array['default']:"";
         $form->hidden($campo, $value);
-    }
-    
-    public function getSearchData(){
-        return array();
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return $value;
+	}
 }
-
-?>

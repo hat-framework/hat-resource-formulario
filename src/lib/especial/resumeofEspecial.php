@@ -16,11 +16,13 @@ class resumeofEspecial extends especialInterface{
         $value = (array_key_exists('default', $array))?$array['default']:"";
         $form->hidden($campo, $value);
         return;
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

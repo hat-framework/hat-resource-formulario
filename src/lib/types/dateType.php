@@ -34,10 +34,27 @@ class dateType extends typeInterface{
         $value = (($value != "")?$value:(isset($array['default'])?$array['default']:""));
         $this->form->text($name, $caption, $value, $desc, 'min="1900-01-01" data-type="date"', $type);
     }
-    
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Número");
+	}
+	
+	public function genQuery($name, $array, $params){
+		$paramname = $this->getParamName($name, $array);
+		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
+			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
+			return $this->genRange($name, $params);
+		}elseif($params[$paramname] == ""){return;}
+		return $this->genEquals($name, $paramname, $params);
+	}
+			
+	public function format($dados, &$value){
+		if($value == '0000-00-00') {
+			$value = "";
+			return $value;
+		}
+		$value = \classes\Classes\timeResource::getFormatedDate($value);
+		return $value;
+	}
     
 }

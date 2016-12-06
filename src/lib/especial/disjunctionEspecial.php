@@ -19,11 +19,17 @@ class disjunctionEspecial extends especialInterface{
             $form->radioCamp($name, $arr, $selected, $caption, $desc);
         print_r($disj);
         
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		echoBr(__METHOD__);
+		print_rh($name);
+		print_rh($array);
+	}
+	
+	public function format($dados, &$value){
+		echoBr(__METHOD__);
+		print_rh($value);
+		print_rh($dados);
+	}
 }
-
-?>

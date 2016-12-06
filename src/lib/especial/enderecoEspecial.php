@@ -10,11 +10,10 @@ class enderecoEspecial extends especialInterface{
         $this->LoadJsPlugin('formulario/cep', 'end');
         extract($array);
         $this->end->endereco($endereco['cep'], $endereco['rua'], $endereco['bairro'], $endereco['cidade'], $endereco['estado']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	
+	public function filter($name, $array){}
+	
+	public function format($dados, &$value){}
 }
-
-?>

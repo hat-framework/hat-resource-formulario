@@ -60,11 +60,14 @@ class cnpjEspecial extends especialInterface{
         $resto = $soma2 % 11; 
         $digito2 = $resto < 2 ? 0 : 11 - $resto; 
         return (($cnpj[16] == $digito1) && ($cnpj[17] == $digito2)); 
-    } 
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    } 	
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Cnpj");
+	}
+			
+	public function format($dados, &$value){
+		$value = $this->mask($value, '##.###.###/####-##');
+		return $value;
+	}
 }
-
-?>

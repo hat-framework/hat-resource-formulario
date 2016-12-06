@@ -21,11 +21,13 @@ class fileEspecial extends especialInterface {
 </video>
          */;
         $form->file($campo, $array['name'], @$array['description']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

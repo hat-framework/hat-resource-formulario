@@ -24,10 +24,14 @@ class urlEspecial extends especialInterface {
         }
         $form->text($campo, $array['name'], @$array['default'], @$array['description']);
     }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		safeUnset($array['filter'], 'group');
+		return $this->common_filter($name, $array, "Link");
+	}
+	
+	public function format($dados, &$value){
+		$value = "<a href='$value'>$value</a>";
+		return $value;
+	}
 }
-
-?>

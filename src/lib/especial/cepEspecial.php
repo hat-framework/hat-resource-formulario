@@ -22,12 +22,17 @@ class cepEspecial extends especialInterface{
         $this->cep->endereco($campo, 'rua', 'bairro', 'cidade', 'estado');
         $form->text($campo, $array['name'], @$array['default'], @$array['description'], "maxlength='8' size='9'");
         
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		echoBr(__METHOD__);
+		print_rh($name);
+		print_rh($array);
+	}
+	
+	public function format($dados, &$value){
+		$value = $this->mask($value, '#####-###');
+		return $value;
+	}
     
 }
-
-?>

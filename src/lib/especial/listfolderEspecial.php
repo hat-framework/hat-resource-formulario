@@ -34,11 +34,13 @@ class listfolderEspecial extends especialInterface {
         //seta o campo no formulario
         $form->select($campo, $out, $default, $name, @$array['description']);
         
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "");
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
 }
-
-?>

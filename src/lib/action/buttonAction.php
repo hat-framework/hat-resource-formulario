@@ -1,6 +1,5 @@
 <?php
 
-use classes\Classes\Object;
 class buttonAction extends classes\Classes\Object implements actionInterface{
     
     public function executar($name, $type, $array, $form){
@@ -25,6 +24,8 @@ class buttonAction extends classes\Classes\Object implements actionInterface{
         return true;
     }
     
+	public function filter($name, $array){}
+	
     public function flush() {
         
     }

@@ -26,9 +26,14 @@ class sessionEspecial extends especialInterface {
         if(isset($array['hide_notsession']) && $array['hide_notsession'] == true) return true;
         $this->LoadResource('formulario', 'form');
         $this->form->executeAction($campo, $array);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return "";
+	}
+	
+	public function format($dados, &$value){
+		$value = "";
+		return $value;
+	}
 }

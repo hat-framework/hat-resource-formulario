@@ -12,9 +12,14 @@ class senhaEspecial extends especialInterface{
             $extra = " autocomplete='off'";
         }
         $form->password($campo, $array['name'], "", @$array['description'], $extra);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		$value = "";
+		return;
+	}
 }

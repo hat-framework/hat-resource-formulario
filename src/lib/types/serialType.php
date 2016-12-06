@@ -9,11 +9,17 @@ class serialType extends typeInterface{
     
     public function formulario($campo, $array){
         //$this->form->input($campo, ucfirst($campo));
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Número");
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
 }
-
-?>

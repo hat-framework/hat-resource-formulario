@@ -16,8 +16,17 @@ class bitType extends typeInterface{
         $this->form->checkbox($name, '1', $caption, $selected, $desc); //É visualmente melhor exibir sim ou não como checkbox
         $this->form->addToForm("<br/>");
     }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Seleção");
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+	
+	public function format($dados, &$value){
+		$value = ($value == 1 || $value === true)?"Sim":"Não";
+		return $value;
+	}
 }

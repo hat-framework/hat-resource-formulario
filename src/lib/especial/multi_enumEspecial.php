@@ -11,9 +11,13 @@ class multi_enumEspecial extends especialInterface{
         $selected = array_key_exists('default', $array) ? $array['default'] : '';
         $arr      = $array['options'];
         $form->checkCamp($campo, $arr, $selected, $array['name'], @$array['description']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "");
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
 }

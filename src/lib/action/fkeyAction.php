@@ -39,4 +39,8 @@ class fkeyAction extends classes\Classes\Object implements actionInterface{
     public function flush() {
         
     }
+	
+	public function filter($name, $array) {
+		
+	}
 }

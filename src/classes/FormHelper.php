@@ -1,6 +1,5 @@
 <?php
 
-use classes\Classes\Object;
 class FormHelper extends classes\Classes\Object{
 
     public $Js = array();
@@ -182,6 +181,10 @@ class FormHelper extends classes\Classes\Object{
         elseif(is_array($vars))         {$this->vars        = $vars;}
     }
 
+	public function setDado($name, $dado){
+        $this->dados[$name] = $dado;
+	}
+	
     public function setDados($dados = ""){
         $this->dados = $dados;
     }

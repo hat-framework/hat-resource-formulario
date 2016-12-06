@@ -28,10 +28,30 @@ class porcentagemEspecial extends especialInterface{
         $this->jsval->addMask($mask);
         $form->text($campo, $array["name"], @$array['default'], @$array['description']);
     }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		if(!isset($array['type'])){return;}
+		try{
+			$class = "{$array['type']}Type";
+			loadFormFile("lib/action/types/$class.php");
+			$type = new $class();
+			return $type->filter($name, $array);
+		} catch (Exception $ex) {
+			return;
+		}
+	}
+	
+	public function format($dados, &$value){
+		if(!isset($dados['type'])){return;}
+		try{
+			$class = "{$dados['type']}Type";
+			loadFormFile("lib/action/types/$class.php");
+			$type = new $class();
+			$type->format($dados, $value);
+			$value = "$value %";
+			return $value;
+		} catch (Exception $ex) {
+			return;
+		}
+	}
 }
-
-?>

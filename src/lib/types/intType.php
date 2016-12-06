@@ -15,18 +15,27 @@ class intType extends typeInterface{
         return true;
     }
     
-     public function formulario($name, $array, $caption = "", $value = "", $desc = ""){
+    public function formulario($name, $array, $caption = "", $value = "", $desc = ""){
          $this->LoadJsPlugin("formulario/keyfilther", "kf");
          $this->kf->int($name);
          $extra = (isset($array['size']))?"maxlength='{$array['size']}'":"";
          $this->form->text($name, $caption, $value, $desc, $extra);
     }
-    
-    public function getSearchData(){
-        echo $this->name;
-        print_r($this->data);
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Número");
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
+	
+	public function genQuery($name, $array, $params){
+		$paramname = $this->getParamName($name, $array);
+		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
+			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
+			return $this->genRange($name, $params);
+		}elseif($params[$paramname] == ""){return;}
+		return $this->genEquals($name, $paramname, $params);
+	}
 }
-
-?>

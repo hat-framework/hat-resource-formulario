@@ -22,8 +22,20 @@ class telefoneEspecial extends especialInterface{
         $this->jsval->addMask("$('#$campo').mask('(99) 9999-9999?9');");
         $form->text($campo, $array['name'], @$array['default'], @$array['description'], "autocomplete='off'", 'tel');
     }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		return array($name => $this->commonFilter($array['name'], $array));
+	}
+	
+	public function format($dados, &$value){
+		$phone = preg_replace("/[^0-9]/", "", $value);
+		if(strlen($phone) == 8){
+			$value = preg_replace("/([0-9]{4})([0-9]{4})/", "$1-$2", $phone);
+		}
+		elseif(strlen($phone) >= 10){
+			$value = preg_replace("/([0-9]{2})([0-9]{4})([0-9]{4}|[0-9]{5})/", "($1) $2-$3", $phone);
+		}
+		$value = "<a href=\"tel:$phone\">$value</a>";
+		return $value;
+	}
 }

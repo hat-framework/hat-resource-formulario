@@ -11,13 +11,7 @@ class enumType extends typeInterface{
         $desc     = (isset($array['description']))?$array['description']:"";
         $temp     = $this->form->getVar("$name");
         $selected = "";
-        if(is_array($temp)){
-            /*if(count($temp) > 1) {
-                die("Erro inesperado na classe: ".__METHOD__ . " - ". __LINE__);
-            }
-            else $temp = array_shift ($temp);*/
-            $temp = array_shift ($temp);
-        }
+        if(is_array($temp)){$temp = array_shift ($temp);}
         if(array_key_exists("$temp",  $array['options']))$selected = $temp;
         if($selected == "") $selected = array_key_exists('default', $array) ? $array['default'] : '';
         if(!array_key_exists($selected, $array['options']))$selected = "";
@@ -45,8 +39,36 @@ class enumType extends typeInterface{
         }
         
     }
-    
-    public function getSearchData(){
-        die('dasf');
-    }
+	
+	public function filter($name, $array){
+		$out = array();
+		$out[$name] = array(
+			'name'	  => $array['name'],
+			'type'    => 'enum',
+			'especial'=>'multi_enum',
+			'default' => isset($array['default'])?$array['default']:"",
+			'options' => $array['options'],
+			'question'=> true
+		);
+		return $out;
+	}
+	
+	public function genQuery($name, $array, $params){
+		if(!isset($params[$name])){return;}
+		if(!is_array($params[$name])){$params[$name] = array($params[$name]);}
+		foreach($params[$name] as $i => $val){
+			if(!isset($array['options'][$val])){safeUnset($val, $params[$name][$i]);}
+		}
+		if(empty($params[$name])){return;}
+		$in = implode("','", $params[$name]);
+		return "$name IN ('$in')";
+	}
+	
+	public function format($dados, &$value){
+		if(!array_key_exists('options', $dados) || !array_key_exists($value, $dados['options'])){
+			return $value;
+		}
+		$value = $dados['options'][$value];
+		return $value;
+	}
 }

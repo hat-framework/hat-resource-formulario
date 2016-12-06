@@ -56,9 +56,14 @@ class cpfEspecial extends especialInterface{
         }
 
         return true;
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, 'Cpf');
+	}
+	
+	public function format($dados, &$value){
+		$value = $this->mask($value, '###.###.###-##');
+		return $value;
+	}
 }

@@ -13,11 +13,13 @@ class pluginEspecial extends especialInterface {
         
         $this->LoadJsPlugin($plugin, 'plugin');
         $this->plugin->addToForm($form, $campo, $array['plugin']);        
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

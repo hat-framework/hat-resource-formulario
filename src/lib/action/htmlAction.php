@@ -1,6 +1,5 @@
 <?php
 
-use classes\Classes\Object;
 class htmlAction extends classes\Classes\Object implements actionInterface{
     
     public function executar($name, $type, $array, $form){
@@ -14,6 +13,8 @@ class htmlAction extends classes\Classes\Object implements actionInterface{
     public function flush() {
         
     }
+	
+	public function filter($name, $array){
+		return ;
+	}
 }
-
-?>

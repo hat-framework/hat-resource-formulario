@@ -64,11 +64,18 @@ class timeType extends typeInterface{
             }
         }
         return false;
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function format($dados, &$value){
+		if($value == '00:00:00' || $value == '00:00') {$value = "";}
+		return $value;
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, 'Hora');
+	}
 }
-
-?>

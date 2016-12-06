@@ -33,9 +33,13 @@ class autenticationEspecial extends especialInterface {
         $var = $form->getVar("__$campo");
         if($var == "" || $var == 0) $var = "";
         $form->hidden($campo, $var);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function format($dados, &$value){
+		return;
+	}
+	
+	public function filter($name, $array){
+
+	}
 }

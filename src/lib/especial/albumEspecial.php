@@ -34,11 +34,14 @@ class albumEspecial extends especialInterface {
         //seta o campo no formulario
         $form->hidden($campo, $value);
         
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function format($dados, &$value){
+		
+	}
+	
+	public function filter($name, $array){
+		$value = "";
+		return $value;
+	}
 }
-
-?>

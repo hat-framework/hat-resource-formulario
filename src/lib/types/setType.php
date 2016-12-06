@@ -29,11 +29,28 @@ class setType extends typeInterface{
         }else{
             $this->form->checkCamp($name, $arr, $selected, $caption, $desc);
         }
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		$out = array();
+		$out[$name] = array(
+			'name'	  => $array['name'],
+			'type'    => 'enum',
+			'default' => isset($array['default'])?$array['default']:"",
+			'options' => $array['options'],
+		);
+		return $out;
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+	
+	public function format($dados, &$value){
+		if(!array_key_exists('options', $dados) || !array_key_exists($value, $dados['options'])){
+			return $value;
+		}
+		$value = $dados['options'][$value];
+		return $value;
+	}
 }
-
-?>

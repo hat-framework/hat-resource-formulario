@@ -12,11 +12,13 @@ class anexoEspecial extends especialInterface {
     public function js($campo, $array, $form){
         $this->LoadJsPlugin('upload/blueimp', 'up');
         $this->up->draw($form, $campo, $array['anexo'], @$array['description']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
-}
+    }	
+	
+	public function format($dados, &$value){
+		return;
+	}
+	
+	public function filter($name, $array){
 
-?>
+	}
+}

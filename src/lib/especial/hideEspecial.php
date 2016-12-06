@@ -8,11 +8,13 @@ class hideEspecial extends especialInterface{
     
     public function js($campo, $array, $form){
 
-    }
-    
-    public function getSearchData(){
-        return array();
-    }
+    }	
+	
+	public function filter($name, $array){
+		return array();
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
 }
-
-?>

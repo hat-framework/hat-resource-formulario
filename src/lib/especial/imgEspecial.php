@@ -15,11 +15,13 @@ class imgEspecial extends especialInterface {
             $array['default'] = "http://";
         }
         $form->text($campo, $array['name'], @$array['default'], @$array['description']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return array();
+	}
+	
+	public function format($dados, &$value){
+		return "<img src='$value'/>";
+	}
 }
-
-?>

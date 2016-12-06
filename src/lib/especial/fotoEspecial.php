@@ -26,11 +26,13 @@ class fotoEspecial extends especialInterface {
         //seta o campo no formulario
         $form->hidden($campo, $value);
         
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

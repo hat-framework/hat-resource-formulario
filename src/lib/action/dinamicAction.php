@@ -1,7 +1,6 @@
 <?php
 
 require_once 'dinamic/DinamicForm.php';
-use classes\Classes\Object;
 class dinamicAction extends classes\Classes\Object implements actionInterface {
     
     private static $added = array();
@@ -35,10 +34,10 @@ class dinamicAction extends classes\Classes\Object implements actionInterface {
         }
     }
     
+	public function filter($name, $array){}
+	
     public function validar($name, $type, &$array){
         return true;
     }
 
 }
-
-?>

@@ -32,11 +32,13 @@ class equaltoEspecial extends especialInterface {
         
         $type = $dado['type'];
         $form->$type($campo, $array['name'], @$array['default'], @$array['description']);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

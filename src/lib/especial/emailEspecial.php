@@ -17,11 +17,18 @@ class emailEspecial extends especialInterface{
         $this->LoadJsPlugin("formulario/jqueryvalidate", 'jsval');
         $this->jsval->addValidation($campo, $validation, $message);
         $form->text($campo, $array['name'], @$array['default'], @$array['description'], "", 'email');
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		echoBr(__METHOD__);
+		print_rh($name);
+		print_rh($array);
+	}
+	
+	public function format($dados, &$value){
+		if($value == ""){return;}
+		$temp = "<a href=\"mailto:$value\">$value</a>";
+		$value = $temp;
+		return $value;
+	}
 }
-
-?>

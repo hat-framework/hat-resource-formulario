@@ -1,6 +1,5 @@
 <?php
 
-use classes\Classes\Object;
 class fieldsetAction extends classes\Classes\Object implements actionInterface{
     
     public function executar($name, $type, $array, $form){
@@ -11,9 +10,9 @@ class fieldsetAction extends classes\Classes\Object implements actionInterface{
         return true;
     }
     
+	public function filter($name, $array){}
+	
     public function flush() {
         
     }
 }
-
-?>

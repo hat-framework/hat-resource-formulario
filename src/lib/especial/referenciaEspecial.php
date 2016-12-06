@@ -14,11 +14,9 @@ class referenciaEspecial extends especialInterface {
     public function js($campo, $array, $form){
         $value = (array_key_exists('default', $array))?$array['default']:"";
         $form->hidden($campo,  \classes\Classes\crypt::encrypt_camp($value));
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){}
+	
+	public function format($dados, &$value){}
 }
-
-?>

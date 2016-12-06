@@ -9,11 +9,13 @@ class ordenarEspecial extends especialInterface{
     public function js($campo, $array, $form){
         $value = (array_key_exists('default', $array))?$array['default']:"0";
         $form->hidden($campo, $value);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function filter($name, $array){
+		return;
+	}
+	
+	public function format($dados, &$value){
+		return;
+	}
 }
-
-?>

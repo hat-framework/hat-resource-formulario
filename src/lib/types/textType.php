@@ -16,9 +16,22 @@ class textType extends typeInterface{
             $extra = "cols='$cols' rows='$rows' style='resize: none;'";
         }
         $this->form->textarea($name, $caption, $value, $desc, $extra);
-    }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+    }	
+	
+	public function format($dados, &$value){
+		if(!isset($dados['format']) || !isset($dados['format']['keeptags']) || $dados['format']['keeptags'] != true){
+			$value = strip_tags($value, "<b><a><ul><li><ol><i><u>");
+		}
+		if(strlen($value) <= 120) {return;}
+		$value = Resume($value, 120);
+		return $value;
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, 'Data');
+	}
 }

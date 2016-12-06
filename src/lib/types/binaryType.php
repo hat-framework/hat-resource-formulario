@@ -10,10 +10,16 @@ class binaryType extends typeInterface{
     public function formulario($name, $array, $caption = "", $desc = ""){
     	
     }
-    
-    public function getSearchData(){
-        die(__CLASS__);
-    }
+	
+	public function filter($name, $array){
+		return $this->common_filter($name, $array, "Ano");
+	}
+	
+	public function genQuery($name, $array, $params){
+		echoBr(__METHOD__);
+	}
+			
+	public function format($dados, &$value){
+		return $value;
+	}
 }
-
-?>
