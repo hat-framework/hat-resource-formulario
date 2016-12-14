@@ -43,7 +43,7 @@ class formatResource extends \classes\Interfaces\resource{
 		if(isset($dados['especial'])){
 			return $this->especialAction->format($dados, $value);
 		}
-		if(!isset($dados['type'])){print_rd($dados);}
+		if(!isset($dados['type'])){return $value;}
 		return $this->typeAction->format($dados, $value);
 	}
 }
