@@ -33,7 +33,7 @@ class intType extends typeInterface{
 	public function genQuery($name, $array, $params){
 		$paramname = $this->getParamName($name, $array);
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
-			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
+			if((!isset($params["{$paramname}_min"]) || $params["{$paramname}_min"] == "") && (!isset($params["{$paramname}_max"]) || $params["{$paramname}_max"] == "")){return;}
 			return $this->genRange($name, $params);
 		}elseif($params[$paramname] == ""){return;}
 		return $this->genEquals($name, $paramname, $params);

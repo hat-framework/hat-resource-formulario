@@ -41,8 +41,8 @@ class decimalType extends typeInterface{
 		$e      = explode(',', $dados['size']);
 		$casas  = end($e);
 		if($casas == "") {$casas = 2;}
-		$valor  = number_format($valor, $casas, ',', '.');
-		return $valor;
+		$value  = number_format($value, $casas, ',', '.');
+		return $value;
 	}
 	
 	public function genQuery($name, $array, $params){

@@ -63,12 +63,12 @@ class timestampType extends typeInterface{
     }
 	
 	public function format($dados, &$value){
-		if($valor == '0000-00-00') {
-			$valor = "";
-			return $valor;
+		if($value == '0000-00-00') {
+			$value = "";
+			return $value;
 		}
-		$valor = \classes\Classes\timeResource::getFormatedDate($valor);
-		return $valor;
+		$value = \classes\Classes\timeResource::getFormatedDate($value);
+		return $value;
 	}
 	
 	public function genQuery($name, $array, $params){

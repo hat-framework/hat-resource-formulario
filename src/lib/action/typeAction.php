@@ -19,9 +19,9 @@ class typeAction extends classes\Classes\Object implements actionInterface{
     public function executar($name, $type, $array, $form){
         
 		$array['type'] = $type;
+		if(array_key_exists("especial", $array)){return true;}
 		$obj = $this->getObject($array, $form);
 		if(is_bool($obj)){return true;}
-		
 		
         $caption = array_key_exists("name", $array)       ?$array['name']       :$name;
         $desc    = array_key_exists("description", $array)?$array['description']:"";
