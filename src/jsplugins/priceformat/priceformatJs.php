@@ -17,7 +17,7 @@ class priceformatJs extends JsPlugin{
     
     public function init(){
         $this->Html->LoadJQuery();
-        $this->Html->LoadBowerComponent("Jquery-Price-Format/jquery.price_format.min");
+        $this->Html->LoadBowerComponent("jquery-price-format/jquery.priceformat.min");
     }
     
     public function getClass(){
