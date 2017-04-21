@@ -112,7 +112,7 @@ class validatorResource extends \classes\Interfaces\resource{
 
         $bool = true;
         $obj  = $this->action[$class];
-        if($obj->validar($field, $value, $this->post[$field]) === false){
+        if($obj->validar($field, $value, $this->post[$field], $this->post) === false){
             $this->msg_form[$field] = $obj->getErrorMessage();
             $this->setMessage($field, $this->msg_form[$field]);
             $bool = false;

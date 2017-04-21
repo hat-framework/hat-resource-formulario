@@ -67,8 +67,8 @@ class timestampType extends typeInterface{
 			$value = "";
 			return $value;
 		}
-		$value = \classes\Classes\timeResource::getFormatedDate($value);
-		return $value;
+		$valor = \classes\Classes\timeResource::getFormatedDate($value);
+		return $valor;
 	}
 	
 	public function genQuery($name, $array, $params){

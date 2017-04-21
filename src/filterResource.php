@@ -35,13 +35,19 @@ class filterResource extends \classes\Interfaces\resource{
     }
 	
 	public function getQuery($params, $model_or_data){
+        $tb = "";
+        if(!is_array($model_or_data)){
+            $tb = $this->LoadModel($model_or_data, "tmp_md")->getTable().".";
+        }
 		$dados	   = $this->getData($model_or_data);
 		$queryData = array();
 		foreach($dados as $name => $array){
 			$this->prepareArray($array);
 			$temp = $this->executeAction($name, $array, 'genQuery', $params);
 			if(trim($temp) == "" || empty($temp)){continue;}
-			$queryData[$name] = $temp;
+            $tmp  = $tb.$name;
+            $count = 1;
+			$queryData[$name] = str_replace($name, $tmp, $temp, $count);
 		}
 		return $queryData;
 	}
@@ -97,6 +103,7 @@ class filterResource extends \classes\Interfaces\resource{
 	
 			private function executeAction($name, $array, $method, $params = array()){
 				if(empty($array) || !is_array($array)) {return;}
+                if(isset($array['filter']) && empty($array['filter'])){return;}
 				foreach($array as $action => $value){
 					$obj = $this->getObject($action);
 					if($obj === false || !method_exists($obj, $method)){continue;}

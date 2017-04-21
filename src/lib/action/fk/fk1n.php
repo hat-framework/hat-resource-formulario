@@ -2,6 +2,7 @@
 
 class fk1n extends fk{
 
+    private $removeKeys = array();
     public function geraForm(){
         $this->initVars();
         $arr = $this->getArray();
@@ -55,12 +56,17 @@ class fk1n extends fk{
             }
 
             private function simple_input($class = ""){
+                $this->removeKeys = array();
+                $data   = $this->model_obj->getDados();
                 $arr    = $this->getArray();
                 $k1     = @$this->keys[0];
-                $k2     = @$this->keys[1];
+                $k2     = $this->setFk1nJoin(@$this->keys[1], $data, 1);
+//                $this->setFk1nJoin($k1, $data);
+                
+                
                 $order  = array_key_exists('select_order', $arr)?$arr['select_order']:"$k2 ASC";
                 $dados  = $this->model_obj->selecionar($this->keys, $this->filtro, '','', $order);
-                //echo $this->model_obj->db->getSentenca(); print_r($dados);
+//                echo $this->model_obj->db->getSentenca(); print_rh($dados);
                 $out = array();
                 if(!array_key_exists('notnull', $arr) || $arr['notnull'] == false){
                     $this->selected = ($this->selected != "")?$this->selected:'0';
@@ -74,6 +80,19 @@ class fk1n extends fk{
                 $form = $this->getForm();
                 $form->select($this->names, $out, $this->selected, $this->name_arr, $this->desc, $class);
             }
+            
+                    private function setFk1nJoin($k1, $dados, $index){
+                        if(!isset($dados[$k1]) || !isset($dados[$k1]['fkey']) || $dados[$k1]['fkey']['cardinalidade'] != '1n'){return $k1;}
+                        $tb = $this->LoadModel($dados[$k1]['fkey']['model'], "tmp_md")->getTable();
+                        $this->model_obj->join($dados[$k1]['fkey']['model'], $k1, $dados[$k1]['fkey']['keys'][0], 'LEFT');
+                        $i     = 0;
+                        foreach ($dados[$k1]['fkey']['keys'] as $k){
+                            if($i++ == 0){continue;}
+                            $this->keys[$index] = "$tb.$k";
+                            $this->removeKeys[$k1] = "$tb.$k";
+                            return "$k";
+                        }
+                    }
             
                     private function prepareArray($dados, $k1, $k2, &$out){
                         foreach($dados as $temp_arr){
