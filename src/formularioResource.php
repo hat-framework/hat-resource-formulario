@@ -76,6 +76,7 @@ class formularioResource extends \classes\Interfaces\resource{
         foreach($dados as $name => $array){
             if(array_key_exists("ai", $array)&&$array['ai']) {$array['especial'] = 'hidden';}
             elseif(array_key_exists("private", $array)&&$array['private']) {continue;}
+            elseif(array_key_exists("display_form", $array)&&!$array['display_form']) {continue;}
             elseif(array_key_exists("fkey", $array)) {unset($array['type']);}
             if(array_key_exists("default", $array) && !$this->form->hasVar($name)){
                 $varvalue = $array['default'];

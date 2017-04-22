@@ -50,10 +50,11 @@ class decimalType extends typeInterface{
 		
 		$paramname = $this->getParamName($name, $array);
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
+            if(!isset($params["{$paramname}_min"]) || !isset($params["{$paramname}_max"])){return;}
 			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
 			$this->getValid($paramname, $array, $params);
 			return $this->genRange($name, $params);
-		}elseif($params[$paramname] == ""){return;}
+		}elseif(!isset($params[$paramname]) || $params[$paramname] == ""){return;}
 		$this->validate2('', $params["$paramname"]);
 		return $this->genEquals($name, $paramname, $params);
 	}

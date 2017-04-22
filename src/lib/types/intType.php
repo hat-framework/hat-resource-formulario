@@ -35,7 +35,7 @@ class intType extends typeInterface{
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
 			if((!isset($params["{$paramname}_min"]) || $params["{$paramname}_min"] == "") && (!isset($params["{$paramname}_max"]) || $params["{$paramname}_max"] == "")){return;}
 			return $this->genRange($name, $params);
-		}elseif($params[$paramname] == ""){return;}
+		}elseif(!isset($params[$paramname]) || $params[$paramname] == ""){return;}
 		return $this->genEquals($name, $paramname, $params);
 	}
 }

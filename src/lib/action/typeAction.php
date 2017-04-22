@@ -19,10 +19,9 @@ class typeAction extends classes\Classes\Object implements actionInterface{
     public function executar($name, $type, $array, $form){
         
 		$array['type'] = $type;
-        if(isset($array['especial']) && $array['especial'] == 'hide'){return true;}
+		if(array_key_exists("especial", $array)){return true;}
 		$obj = $this->getObject($array, $form);
 		if(is_bool($obj)){return true;}
-		
 		
         $caption = array_key_exists("name", $array)       ?$array['name']       :$name;
         $desc    = array_key_exists("description", $array)?$array['description']:"";
@@ -48,6 +47,9 @@ class typeAction extends classes\Classes\Object implements actionInterface{
     
 	public function filter($name, $array){
 		$this->name = $name;
+        if(isset($array['especial']) && in_array($array['especial'], array('hide','hidden'))){
+            unset($array['especial']);
+        }
 		$obj = $this->getObject($array);
 		if(is_bool($obj)){return true;}
 		return $obj->filter($name, $array);

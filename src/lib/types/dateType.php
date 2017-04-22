@@ -42,9 +42,10 @@ class dateType extends typeInterface{
 	public function genQuery($name, $array, $params){
 		$paramname = $this->getParamName($name, $array);
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
+			if(!isset($params["{$paramname}_min"]) && !isset($params["{$paramname}_max"])){return;}
 			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
 			return $this->genRange($name, $params);
-		}elseif($params[$paramname] == ""){return;}
+		}elseif(!isset ($params[$paramname]) || $params[$paramname] == ""){return;}
 		return $this->genEquals($name, $paramname, $params);
 	}
 			

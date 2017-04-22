@@ -63,7 +63,7 @@ class filterResource extends \classes\Interfaces\resource{
 			if(!is_array($temp)){continue;}
 			//$this->getFilterInformation($name,$array, $temp);
 			foreach($temp as $key => $arr){
-				safeUnset(array('notnull'), $arr);
+				safeUnset(array('notnull','default'), $arr);
 				$formData[$key] = $arr;
 			}
 		}
