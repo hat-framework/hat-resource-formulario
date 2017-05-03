@@ -41,7 +41,7 @@ class decimalType extends typeInterface{
 		$e      = explode(',', $dados['size']);
 		$casas  = end($e);
 		if($casas == "") {$casas = 2;}
-		$valor  = number_format($valor, $casas, ',', '.');
+		$valor  = number_format($value, $casas, ',', '.');
 		return $valor;
 	}
 	
