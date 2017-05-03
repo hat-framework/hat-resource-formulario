@@ -41,8 +41,8 @@ class decimalType extends typeInterface{
 		$e      = explode(',', $dados['size']);
 		$casas  = end($e);
 		if($casas == "") {$casas = 2;}
-		$value  = number_format($value, $casas, ',', '.');
-		return $value;
+		$valor  = number_format($valor, $casas, ',', '.');
+		return $valor;
 	}
 	
 	public function genQuery($name, $array, $params){
@@ -50,7 +50,7 @@ class decimalType extends typeInterface{
 		
 		$paramname = $this->getParamName($name, $array);
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
-            if(!isset($params["{$paramname}_min"]) || !isset($params["{$paramname}_max"])){return;}
+			if(!isset($params["{$paramname}_min"]) && !isset($params["{$paramname}_max"])){return;}
 			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
 			$this->getValid($paramname, $array, $params);
 			return $this->genRange($name, $params);

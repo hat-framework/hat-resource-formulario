@@ -29,8 +29,9 @@ class intType extends typeInterface{
 	public function format($dados, &$value){
 		return $value;
 	}
-	
+   
 	public function genQuery($name, $array, $params){
+        if(empty($params)){return;}
 		$paramname = $this->getParamName($name, $array);
 		if(isset($array['filter']['type']) && $array['filter']['type'] === 'range'){
 			if((!isset($params["{$paramname}_min"]) || $params["{$paramname}_min"] == "") && (!isset($params["{$paramname}_max"]) || $params["{$paramname}_max"] == "")){return;}

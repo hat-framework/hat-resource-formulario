@@ -45,7 +45,7 @@ class dateType extends typeInterface{
 			if(!isset($params["{$paramname}_min"]) && !isset($params["{$paramname}_max"])){return;}
 			if($params["{$paramname}_min"] == "" && $params["{$paramname}_max"] == ""){return;}
 			return $this->genRange($name, $params);
-		}elseif(!isset ($params[$paramname]) || $params[$paramname] == ""){return;}
+		}elseif(!isset($params[$paramname]) || $params[$paramname] == ""){return;}
 		return $this->genEquals($name, $paramname, $params);
 	}
 			
