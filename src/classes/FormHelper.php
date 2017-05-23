@@ -545,11 +545,11 @@ class FormHelper extends classes\Classes\Object{
     /*
      * Funcoes do formulario
      */
-    public function FieldSet($fieldset = "", $legend = ""){
+    public function FieldSet($fieldset = "", $legend = "", $class = ''){
 
         $this->CloseFieldSet();
         $this->fieldset++;
-        $var = "<fieldset id='$fieldset'>";
+        $var = "<fieldset id='$fieldset' class='$class'>";
         if($legend != ""){
             $var .= "<legend>$legend</legend>";
         }
