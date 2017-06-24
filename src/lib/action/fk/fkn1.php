@@ -1,5 +1,6 @@
 <?php
 
+include_once __DIR__ . "/../especialAction.php";
 class fkn1 extends fk{
 
     public function validar($value, &$array) {
@@ -54,6 +55,7 @@ class fkn1 extends fk{
         $this->comp->removeListAction();
         $this->comp->addListAction('Salvar' , "#/$model/edit");
         $this->comp->addListAction('Remover', "#/$model/apagar");
+        $this->comp->disableFormat();
         
         ob_start();
         $this->comp->listInTable($model, $data, '', '', true);
@@ -131,11 +133,11 @@ class fkn1 extends fk{
         $caption    = @$array_data['name'];
         $desc       = @$array_data['description'];
         //$mdd        = str_replace("/", "_", $model);
-        
         $this->LoadModel($model, 'model');
         $pkey = $this->model->getPkey();
         
-        $this->LoadModel($this->refmd, 'refmodel');
+        $val = $this->LoadModel($this->refmd, 'refmodel', false);
+        if($val == null){throw new InvalidArgumentException(__CLASS__ . " - RefModel não definido no fkn1 $model");}
         $pkref = $this->refmodel->getPkey();
         if(is_array($pkref)) throw new InvalidArgumentException(__CLASS__ . " - Esta classe não suporta chaves compostas");
         
@@ -155,5 +157,3 @@ class fkn1 extends fk{
     }
     
 }
-
-?>
