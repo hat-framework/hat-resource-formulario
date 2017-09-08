@@ -23,7 +23,7 @@ class varcharType extends typeInterface{
 	public function filter($name, $array){
 		if(!isset($array['filter'])){return;}
 		safeUnset('range', $array['filter']);
-		return $this->common_filter($name, $array, 'Valor');
+		return $this->common_filter($name, $array, 'Pesquisa por texto');
 	}
 	
 	public function genQuery($name, $array, $params){
