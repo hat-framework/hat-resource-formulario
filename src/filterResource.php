@@ -97,11 +97,25 @@ class filterResource extends \classes\Interfaces\resource{
         $formData[$key] = $arr;
       }
     }
+    
+    if(!$this->needPrint($formData)){return "";}
     $formData['_button'] = array("button" => 'Pesquisar');
-    $this->LoadResource('formulario', 'form')
+    return $this->LoadResource('formulario', 'form')
+      ->printable()
       ->setMethod('get')
       ->NewForm($formData, $this->form_data, array(), false);
   }
+  
+      private function needPrint($formData){
+        if(empty($formData)){return "";}
+        $bool = false;
+        foreach($formData as $name => $arr){
+          if(isset($arr['ai']) && $arr['ai'] === true || isset($arr['especial']) && $arr['especial'] !== ''){continue;}
+          $bool = true;
+          break;
+        }
+        return $bool;
+      }
 
       private function getData($model_or_data) {
         try {
