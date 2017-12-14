@@ -17,6 +17,7 @@ class porcentagemEspecial extends especialInterface {
       $this->setErrorMessage("O campo $campo não pode ser menor do que 0%");
       return false;
     }
+    $valor = $teste;
     return true;
   }
 
