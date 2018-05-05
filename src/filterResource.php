@@ -97,7 +97,6 @@ class filterResource extends \classes\Interfaces\resource{
         $formData[$key] = $arr;
       }
     }
-    
     if(!$this->needPrint($formData)){return "";}
     $formData['_button'] = array("button" => 'Pesquisar');
     return $this->LoadResource('formulario', 'form')
@@ -107,7 +106,7 @@ class filterResource extends \classes\Interfaces\resource{
   }
   
       private function needPrint($formData){
-        if(empty($formData)){return "";}
+        if(empty($formData)){return false;}
         $bool = false;
         foreach($formData as $name => $arr){
           if(isset($arr['ai']) && $arr['ai'] === true || isset($arr['especial']) && $arr['especial'] !== ''){continue;}
@@ -142,8 +141,17 @@ class filterResource extends \classes\Interfaces\resource{
         if (isset($array['filter']) && empty($array['filter'])) {
           return;
         }
+        $triedFkey = false;
         foreach ($array as $action => $value) {
-          $obj = $this->getObject($action);
+          if($triedFkey) {
+            break;
+          }
+          $obj = false;
+          if(isset($array['fkey'])) {
+            $obj = $this->getObject('fkey'); 
+            $triedFkey = true;
+          }
+          else { $obj = $this->getObject($action); }
           if ($obj === false || !method_exists($obj, $method)) {
             continue;
           }
