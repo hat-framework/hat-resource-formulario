@@ -86,6 +86,8 @@ class filterResource extends \classes\Interfaces\resource{
     }
     $formData = array();
     foreach ($dados as $name => $array) {
+      if (isset($array['private']) && $array['private'] === true) { continue; }
+      if (isset($array['fkey']) && $array['fkey']['cardinalidade'] === 'n1') { continue; }
       $this->prepareArray($array);
       $temp = $this->executeAction($name, $array, 'filter');
       if (!is_array($temp)) {
