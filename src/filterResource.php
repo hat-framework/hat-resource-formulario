@@ -131,7 +131,7 @@ class filterResource extends \classes\Interfaces\resource{
 
       private function prepareArray(&$array){
 				if(!array_key_exists("filter", $array)) {return false;}
-				elseif(array_key_exists("fkey", $array)) {unset($array['type']);}
+				elseif(array_key_exists("fkey", $array) && $array['fkey']['cardinalidade'] !== '1n') {unset($array['type']);}
 				safeUnset(array('notnull','default'), $array);
 				return true;
 			}
@@ -149,7 +149,7 @@ class filterResource extends \classes\Interfaces\resource{
             break;
           }
           $obj = false;
-          if(isset($array['fkey'])) {
+          if(isset($array['fkey']) && $array['fkey']['cardinalidade'] !== '1n') {
             $obj = $this->getObject('fkey'); 
             $triedFkey = true;
           }

@@ -53,14 +53,13 @@ class validatorResource extends \classes\Interfaces\resource{
     * @param array  $values - array contendo os valores enviados via post
     * @return nada
     */
-    public function validate($dados, $post = array()){
+    public function validate($dados, $post = array(), $ignoreRequired = false){
 
         $bool = true;
         if($this->prepare($dados, $post) === false) {return false;}
         
         //verifica as regras do formulario
         foreach($dados as $field => $arr){
-            
             //se dado nao foi enviado
             if(!array_key_exists($field, $this->post)){continue;}
             
@@ -76,13 +75,13 @@ class validatorResource extends \classes\Interfaces\resource{
             }
             
             foreach($arr as $action => $value){
+                if($action === 'notnull' && $ignoreRequired) {
+                  continue;
+                }
                 if($this->executeAction($field, $action, $value) === false){$bool = false;}
             }
         }
         
-        
-        //echo "["; print_r($this->post); echo "]";
-
         return $this->genMessages($bool, $dados);
     }
     
