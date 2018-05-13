@@ -93,7 +93,6 @@ class filterResource extends \classes\Interfaces\resource{
       if (!is_array($temp)) {
         continue;
       }
-      //$this->getFilterInformation($name,$array, $temp);
       foreach ($temp as $key => $arr) {
         safeUnset(array('notnull', 'default'), $arr);
         $formData[$key] = $arr;
@@ -111,7 +110,7 @@ class filterResource extends \classes\Interfaces\resource{
         if(empty($formData)){return false;}
         $bool = false;
         foreach($formData as $name => $arr){
-          if(isset($arr['ai']) && $arr['ai'] === true || isset($arr['especial']) && $arr['especial'] !== ''){continue;}
+          if(isset($arr['ai']) && $arr['ai'] === true){continue;}
           $bool = true;
           break;
         }
@@ -162,7 +161,6 @@ class filterResource extends \classes\Interfaces\resource{
             if ($out === true) {
               continue;
             }
-            //echoBr("$method::$name");print_rh($out);
             return $out;
           } catch (Exception $ex) {
             echoBr($ex->getMessage());
